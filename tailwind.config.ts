@@ -10,7 +10,7 @@ const config: Config = {
     extend: {
       colors: {
         maroon: {
-          DEFAULT: "#5B0F2D",
+          DEFAULT: "#5c0a29",
           50: "#fdf2f6",
           100: "#fce7ef",
           200: "#f9d0e1",
@@ -20,8 +20,8 @@ const config: Config = {
           600: "#cc2d64",
           700: "#a81f4d",
           800: "#8a1b41",
-          900: "#5B0F2D",
-          950: "#3d0920",
+          900: "#5c0a29",
+          950: "#38061a",
         },
         blush: {
           DEFAULT: "#EBC7D2",
@@ -59,7 +59,7 @@ const config: Config = {
           900: "#4f3b25",
         },
         text: {
-          DEFAULT: "#2D1B20",
+          DEFAULT: "#5c0a29",
           muted: "#7a5c64",
           light: "#a68990",
         },

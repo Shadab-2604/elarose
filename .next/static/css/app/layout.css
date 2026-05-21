@@ -1154,6 +1154,9 @@ video {
 .bg-white\/90{
   background-color: rgb(255 255 255 / 0.9);
 }
+.bg-maroon\/10{
+  background-color: rgb(91 15 45 / 0.1);
+}
 .bg-gradient-to-br{
   background-image: linear-gradient(to bottom right, var(--tw-gradient-stops));
 }
@@ -1193,6 +1196,9 @@ video {
 }
 .to-transparent{
   --tw-gradient-to: transparent var(--tw-gradient-to-position);
+}
+.object-contain{
+  object-fit: contain;
 }
 .object-cover{
   object-fit: cover;

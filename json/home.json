@@ -3,7 +3,7 @@
     "headline": "Handmade Luxury Gifts Crafted",
     "headlineAccent": "With Love",
     "subheadline": "Personalized bouquets, handmade keychains, premium hampers and memorable custom gifting.",
-    "ctaPrimary": "Order on WhatsApp",
+    "ctaPrimary": "Order on Instagram",
     "ctaSecondary": "View Products",
     "badges": ["100% Handmade", "Pan India Delivery", "Customizable"],
     "rating": "4.9",
@@ -82,6 +82,6 @@
   ],
   "finalCtaHeading": "Make Every Gift Memorable.",
   "finalCtaSubheading": "Your perfect gift is just one message away.",
-  "finalCtaButton": "Order on WhatsApp",
+  "finalCtaButton": "Order on Instagram",
   "finalCtaImage": "https://images.pexels.com/photos/931177/pexels-photo-931177.jpeg?auto=compress&cs=tinysrgb&w=1600"
 }

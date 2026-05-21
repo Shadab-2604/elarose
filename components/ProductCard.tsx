@@ -21,11 +21,10 @@ interface ProductCardProps {
   onQuickView: (product: Product) => void;
 }
 
-const WHATSAPP_NUMBER = "919876543210";
+const INSTAGRAM_URL = "https://www.instagram.com/elarose_atelier?igsh=dDVwNDl6dDU3dWcx";
 
 export default function ProductCard({ product, onQuickView }: ProductCardProps) {
-  const msg = `Hi, I'm interested in the "${product.title}" (₹${product.price.toLocaleString("en-IN")}). Can I place an order?`;
-  const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+  const instagramUrl = INSTAGRAM_URL;
 
   return (
     <motion.article
@@ -74,16 +73,13 @@ export default function ProductCard({ product, onQuickView }: ProductCardProps) 
             ₹{product.price.toLocaleString("en-IN")}
           </span>
           <a
-            href={whatsappUrl}
+            href={instagramUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1.5 text-xs font-medium text-maroon hover:text-white hover:bg-maroon border border-maroon/30 hover:border-maroon px-3 py-1.5 rounded-full transition-all duration-300"
+            className="flex items-center gap-2 text-xs font-medium text-maroon hover:text-white hover:bg-maroon border border-maroon/30 hover:border-maroon px-3 py-1.5 rounded-full transition-all duration-300"
           >
-            Order
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <line x1="5" y1="12" x2="19" y2="12"/>
-              <polyline points="12,5 19,12 12,19"/>
-            </svg>
+            <Image src="/images/instagram.png" alt="Instagram" width={16} height={16} className="object-contain" />
+            Order on Instagram
           </a>
         </div>
       </div>

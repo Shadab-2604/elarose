@@ -1,10 +1,10 @@
+import Image from "next/image";
 import Link from "next/link";
 
-const WHATSAPP_NUMBER = "919876543210";
-const WHATSAPP_MSG = "Hi, I want to place an order.";
+const INSTAGRAM_URL = "https://www.instagram.com/elarose_atelier?igsh=dDVwNDl6dDU3dWcx";
 
 export default function Footer() {
-  const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MSG)}`;
+  const instagramUrl = INSTAGRAM_URL;
 
   return (
     <footer className="bg-white border-t border-blush-200 pt-14 pb-8">
@@ -13,9 +13,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="lg:col-span-1">
             <Link href="/" className="flex items-center gap-3 mb-4">
-              <div className="w-9 h-9 rounded-full bg-maroon flex items-center justify-center flex-shrink-0">
-                <span className="text-white font-semibold text-base leading-none" style={{fontFamily:"'Playfair Display',serif"}}>E</span>
-              </div>
+              <Image src="/images/logo.webp" alt="ELAROSE Logo" width={40} height={40} className="object-contain flex-shrink-0" />
               <div className="leading-tight">
                 <div className="font-semibold text-maroon text-base tracking-wide" style={{fontFamily:"'Playfair Display',serif"}}>ELAROSE</div>
                 <div className="text-text-muted text-[10px] tracking-[0.15em] uppercase" style={{fontFamily:"'Cormorant Garamond',serif"}}>handmade luxury</div>
@@ -26,29 +24,22 @@ export default function Footer() {
             </p>
             <div className="flex items-center gap-3">
               <a
-                href="https://instagram.com/elarose.gifts"
+                href={instagramUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full bg-blush-100 flex items-center justify-center text-maroon hover:bg-maroon hover:text-white transition-colors duration-300"
+                className="w-9 h-9 flex items-center justify-center text-maroon hover:text-maroon transition-colors duration-300"
                 aria-label="Instagram"
               >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-                  <circle cx="12" cy="12" r="5"/>
-                  <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
-                </svg>
+                <Image src="/images/instagram.png" alt="Instagram" width={16} height={16} className="object-contain" />
               </a>
               <a
-                href={whatsappUrl}
+                href={instagramUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full bg-blush-100 flex items-center justify-center text-maroon hover:bg-maroon hover:text-white transition-colors duration-300"
-                aria-label="WhatsApp"
+                className="w-9 h-9 flex items-center justify-center text-maroon hover:text-maroon transition-colors duration-300"
+                aria-label="Instagram"
               >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
-                  <path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.555 4.12 1.523 5.855L0 24l6.335-1.497A11.935 11.935 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.655-.497-5.19-1.367l-.37-.22-3.833.905.957-3.735-.241-.384A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
-                </svg>
+                <Image src="/images/instagram.png" alt="Instagram" width={16} height={16} className="object-contain" />
               </a>
               <a
                 href="mailto:hello@elarose.in"
@@ -108,18 +99,11 @@ export default function Footer() {
             <ul className="space-y-3">
               <li className="flex items-center gap-2.5 text-sm text-text-muted">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" className="text-maroon flex-shrink-0">
-                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
-                  <path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.555 4.12 1.523 5.855L0 24l6.335-1.497A11.935 11.935 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.655-.497-5.19-1.367l-.37-.22-3.833.905.957-3.735-.241-.384A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
-                </svg>
-                +91 98765 43210
-              </li>
-              <li className="flex items-center gap-2.5 text-sm text-text-muted">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-maroon flex-shrink-0">
                   <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-                  <circle cx="12" cy="12" r="5"/>
-                  <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+                  <path d="M12 7.5a4.5 4.5 0 110 9 4.5 4.5 0 010-9z"/>
+                  <circle cx="17.5" cy="6.5" r="1"/>
                 </svg>
-                @elarose.gifts
+                @elarose_atelier
               </li>
               <li className="flex items-center gap-2.5 text-sm text-text-muted">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-maroon flex-shrink-0">

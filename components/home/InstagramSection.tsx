@@ -67,11 +67,7 @@ export default function InstagramSection({ data }: { data: InstagramData }) {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-sm font-medium text-maroon border border-maroon/30 px-6 py-2.5 rounded-full hover:bg-maroon hover:text-white transition-all duration-300"
           >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-              <circle cx="12" cy="12" r="5"/>
-              <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
-            </svg>
+            <Image src="/images/instagram.png" alt="Instagram" width={16} height={16} className="object-contain" />
             Follow {data.handle}
           </a>
         </div>

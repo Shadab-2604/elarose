@@ -1,0 +1,87 @@
+{
+  "hero": {
+    "headline": "Handmade Luxury Gifts Crafted",
+    "headlineAccent": "With Love",
+    "subheadline": "Personalized bouquets, handmade keychains, premium hampers and memorable custom gifting.",
+    "ctaPrimary": "Order on WhatsApp",
+    "ctaSecondary": "View Products",
+    "badges": ["100% Handmade", "Pan India Delivery", "Customizable"],
+    "rating": "4.9",
+    "ratingCount": "200+ happy customers",
+    "heroImage": "https://images.pexels.com/photos/931177/pexels-photo-931177.jpeg?auto=compress&cs=tinysrgb&w=1200"
+  },
+  "bestSellersHeading": "Best Sellers",
+  "bestSellersSubheading": "The pieces our customers can't stop gifting.",
+  "whyHeading": "Why Choose ELAROSE",
+  "whySubheading": "Crafted with care in every petal, every stitch, every detail.",
+  "trustPoints": [
+    {
+      "icon": "handmade",
+      "title": "Handmade",
+      "description": "Every piece is made entirely by hand, petal by petal, stitch by stitch."
+    },
+    {
+      "icon": "premium",
+      "title": "Premium Quality",
+      "description": "Only the finest materials — pipe cleaners, ribbons, fabrics, and packaging."
+    },
+    {
+      "icon": "customizable",
+      "title": "Customizable",
+      "description": "Every gift can be tailored to tell your story, your way."
+    },
+    {
+      "icon": "delivery",
+      "title": "Pan India Delivery",
+      "description": "From Mumbai to Manipur — gifts are now travelling everywhere love does."
+    }
+  ],
+  "howItWorksHeading": "How It Works",
+  "howItWorksSubheading": "Four gentle steps to a gift they will never forget.",
+  "steps": [
+    {
+      "number": "01",
+      "title": "Choose",
+      "description": "Browse our collection and pick what speaks to your heart."
+    },
+    {
+      "number": "02",
+      "title": "Customize",
+      "description": "Tell us the name, date, color, or message that makes it personal."
+    },
+    {
+      "number": "03",
+      "title": "Confirm",
+      "description": "We finalize the design, confirm details, and begin crafting."
+    },
+    {
+      "number": "04",
+      "title": "Receive",
+      "description": "Your gift arrives wrapped in our signature ivory packaging."
+    }
+  ],
+  "packagingHeading": "Signature Packaging",
+  "packagingSubheading": "Unboxing is part of the gift. Every parcel is an experience unto itself.",
+  "packagingImages": [
+    {
+      "src": "https://images.pexels.com/photos/5560046/pexels-photo-5560046.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "alt": "ELAROSE gift box with ribbon"
+    },
+    {
+      "src": "https://images.pexels.com/photos/3716340/pexels-photo-3716340.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "alt": "Handwritten thank you card"
+    },
+    {
+      "src": "https://images.pexels.com/photos/6044266/pexels-photo-6044266.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "alt": "Brand sticker and gift wrap"
+    },
+    {
+      "src": "https://images.pexels.com/photos/6044299/pexels-photo-6044299.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "alt": "Luxury wrapped gift"
+    }
+  ],
+  "finalCtaHeading": "Make Every Gift Memorable.",
+  "finalCtaSubheading": "Your perfect gift is just one message away.",
+  "finalCtaButton": "Order on WhatsApp",
+  "finalCtaImage": "https://images.pexels.com/photos/931177/pexels-photo-931177.jpeg?auto=compress&cs=tinysrgb&w=1600"
+}

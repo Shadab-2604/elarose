@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Poppins:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-playfair: 'Playfair Display', serif;
+  --font-poppins: 'Poppins', sans-serif;
+  --font-cormorant: 'Cormorant Garamond', serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #FFF8F8;
+  color: #2D1B20;
+  font-family: 'Poppins', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Playfair Display', serif;
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-maroon text-white font-medium text-sm px-6 py-3 rounded-full transition-all duration-300 hover:bg-maroon-950 hover:shadow-lg active:scale-95 inline-flex items-center gap-2;
+  }
+
+  .btn-secondary {
+    @apply border border-maroon text-maroon font-medium text-sm px-6 py-3 rounded-full transition-all duration-300 hover:bg-maroon hover:text-white active:scale-95 inline-flex items-center gap-2;
+  }
+
+  .section-eyebrow {
+    @apply text-sm tracking-[0.25em] uppercase text-gold-500 mb-3;
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  .section-heading {
+    @apply text-3xl md:text-4xl lg:text-5xl text-text leading-[1.15];
+    font-family: 'Playfair Display', serif;
+  }
+
+  .section-subheading {
+    @apply text-base text-text-muted leading-relaxed;
+  }
+}
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #FFF8F8; }
+::-webkit-scrollbar-thumb { background: #EBC7D2; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #5B0F2D; }
+
+:focus-visible {
+  outline: 2px solid #5B0F2D;
+  outline-offset: 2px;
+  border-radius: 2px;
+}

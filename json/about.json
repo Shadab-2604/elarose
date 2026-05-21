@@ -1,0 +1,71 @@
+{
+  "story": {
+    "eyebrow": "Our Story",
+    "headline": "Where Every Petal Carries A Promise",
+    "body": "ELAROSE began at a kitchen table, with one bouquet, one girl, and one belief: that gifting can be a love language. Today, we hand-craft luxury keepsakes for the moments you never want to forget.",
+    "image": "https://images.pexels.com/photos/931177/pexels-photo-931177.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    "imageAlt": "ELAROSE handcrafted bouquet close up"
+  },
+  "mission": {
+    "icon": "sparkles",
+    "title": "Our Mission",
+    "body": "To slow down gifting. To make it intentional, handmade, and unforgettable. We craft gifts that feel like heirlooms — never disposable, never ordinary."
+  },
+  "vision": {
+    "icon": "sparkles",
+    "title": "Our Vision",
+    "body": "A world where every milestone is wrapped in something handmade. Where the giver feels as cherished as the receiver. Where luxury is measured in love, not in logos."
+  },
+  "process": {
+    "eyebrow": "Process",
+    "headline": "Our Crafting Process",
+    "steps": [
+      {
+        "number": "01",
+        "title": "Listen",
+        "description": "We meet you on WhatsApp and learn the story behind the gift."
+      },
+      {
+        "number": "02",
+        "title": "Design",
+        "description": "Our artisans sketch a unique piece, choosing fabrics and florals."
+      },
+      {
+        "number": "03",
+        "title": "Craft",
+        "description": "Hours of slow handwork, petal by petal, ribbon by ribbon."
+      },
+      {
+        "number": "04",
+        "title": "Wrap",
+        "description": "Signature ivory wrap, blush ribbon, gold seal. Then to your love."
+      }
+    ]
+  },
+  "timeline": {
+    "eyebrow": "Timeline",
+    "headline": "From a Single Bouquet, A Brand Was Born",
+    "events": [
+      {
+        "year": "2022",
+        "title": "A bouquet for a friend",
+        "description": "It all started with a single pipe cleaner bouquet, gifted on a quiet Tuesday."
+      },
+      {
+        "year": "2023",
+        "title": "ELAROSE is born",
+        "description": "We opened our DMs and the first 100 orders arrived within a month."
+      },
+      {
+        "year": "2024",
+        "title": "Studio launch",
+        "description": "A tiny boutique studio became home to our growing artisan team."
+      },
+      {
+        "year": "2025",
+        "title": "Pan-India delivery",
+        "description": "From Mumbai to Manipur — gifts are now travelling everywhere love does."
+      }
+    ]
+  }
+}

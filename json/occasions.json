@@ -1,0 +1,30 @@
+[
+  {
+    "id": "birthday",
+    "title": "Birthday",
+    "description": "Make their day unforgettable with a gift crafted just for them.",
+    "image": "https://images.pexels.com/photos/6044299/pexels-photo-6044299.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "href": "/products?occasion=Birthday"
+  },
+  {
+    "id": "anniversary",
+    "title": "Anniversary",
+    "description": "Celebrate every year together with something as lasting as your love.",
+    "image": "https://images.pexels.com/photos/931177/pexels-photo-931177.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "href": "/products?occasion=Anniversary"
+  },
+  {
+    "id": "wedding",
+    "title": "Wedding",
+    "description": "The perfect gift for the most beautiful beginning.",
+    "image": "https://images.pexels.com/photos/2179387/pexels-photo-2179387.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "href": "/products?occasion=Wedding"
+  },
+  {
+    "id": "special",
+    "title": "Special Occasion",
+    "description": "For moments that don't fit a label, but deserve to be remembered.",
+    "image": "https://images.pexels.com/photos/5632386/pexels-photo-5632386.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "href": "/products?occasion=Special+Surprise"
+  }
+]

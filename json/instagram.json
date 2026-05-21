@@ -1,0 +1,53 @@
+{
+  "handle": "@elarose.gifts",
+  "url": "https://instagram.com/elarose.gifts",
+  "heading": "@elarose.gifts",
+  "subheading": "Follow our journey on Instagram. Follow us and tag us in your unboxing.",
+  "posts": [
+    {
+      "id": "ig1",
+      "image": "https://images.pexels.com/photos/931177/pexels-photo-931177.jpeg?auto=compress&cs=tinysrgb&w=600",
+      "alt": "Blush rose bouquet by ELAROSE"
+    },
+    {
+      "id": "ig2",
+      "image": "https://images.pexels.com/photos/1191536/pexels-photo-1191536.jpeg?auto=compress&cs=tinysrgb&w=600",
+      "alt": "Gold keychain by ELAROSE"
+    },
+    {
+      "id": "ig3",
+      "image": "https://images.pexels.com/photos/5632386/pexels-photo-5632386.jpeg?auto=compress&cs=tinysrgb&w=600",
+      "alt": "Luxury gift hamper by ELAROSE"
+    },
+    {
+      "id": "ig4",
+      "image": "https://images.pexels.com/photos/2179387/pexels-photo-2179387.jpeg?auto=compress&cs=tinysrgb&w=600",
+      "alt": "Pastel bouquet by ELAROSE"
+    },
+    {
+      "id": "ig5",
+      "image": "https://images.pexels.com/photos/6044266/pexels-photo-6044266.jpeg?auto=compress&cs=tinysrgb&w=600",
+      "alt": "Crimson gift wrap by ELAROSE"
+    },
+    {
+      "id": "ig6",
+      "image": "https://images.pexels.com/photos/5560046/pexels-photo-5560046.jpeg?auto=compress&cs=tinysrgb&w=600",
+      "alt": "Signature packaging by ELAROSE"
+    },
+    {
+      "id": "ig7",
+      "image": "https://images.pexels.com/photos/4226896/pexels-photo-4226896.jpeg?auto=compress&cs=tinysrgb&w=600",
+      "alt": "Custom letter frame by ELAROSE"
+    },
+    {
+      "id": "ig8",
+      "image": "https://images.pexels.com/photos/6044299/pexels-photo-6044299.jpeg?auto=compress&cs=tinysrgb&w=600",
+      "alt": "Birthday bundle by ELAROSE"
+    },
+    {
+      "id": "ig9",
+      "image": "https://images.pexels.com/photos/3716340/pexels-photo-3716340.jpeg?auto=compress&cs=tinysrgb&w=600",
+      "alt": "Handwritten card by ELAROSE"
+    }
+  ]
+}

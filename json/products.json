@@ -10,7 +10,7 @@
     "isBestSeller": true,
     "shortDescription": "Twelve handcrafted blush roses that never fade. Wrapped in ivory tissue and gold ribbon.",
     "description": "A timeless arrangement of twelve blush-pink pipe cleaner roses, each individually shaped by hand. These roses will never wilt, never brown, and never be forgotten. Comes wrapped in our signature ivory tissue with a gold satin ribbon and a personalised tag.",
-    "image": "https://images.pexels.com/photos/931177/pexels-photo-931177.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "image": "/images/products/1.webp",
     "customizable": true
   },
   {
@@ -24,7 +24,7 @@
     "isBestSeller": true,
     "shortDescription": "A pastel garden of pipe cleaner blooms. Always in season.",
     "description": "A soft pastel garden of mixed pipe cleaner blooms — roses, peonies, and baby's breath — arranged in a compact bouquet. Perfect for gifting on birthdays, housewarmings, or any day that deserves flowers. Customizable in any color palette.",
-    "image": "https://images.pexels.com/photos/2179387/pexels-photo-2179387.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "image": "/images/products/2.webp",
     "customizable": true
   },
   {
@@ -35,10 +35,10 @@
     "categorySlug": "keychains",
     "occasion": ["Birthday", "Special Surprise"],
     "price": 799,
-    "isBestSeller": true,
+    "isBestSeller": false,
     "shortDescription": "Soft gold-finish initial with a blush tassel. Carry their name everywhere.",
     "description": "A delicate hand-finished initial keychain in soft gold, paired with a blush satin tassel. Personalised with any letter of your choice. Small enough to slip in a pocket, meaningful enough to keep forever.",
-    "image": "https://images.pexels.com/photos/1191536/pexels-photo-1191536.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "image": "/images/products/3.webp",
     "customizable": true
   },
   {
@@ -49,10 +49,10 @@
     "categorySlug": "keychains",
     "occasion": ["Anniversary", "Special Surprise"],
     "price": 749,
-    "isBestSeller": false,
+    "isBestSeller": true,
     "shortDescription": "Engraved with the date that changed everything.",
     "description": "A minimalist keychain engraved with your most important date. Handcrafted in rose-gold finish with a subtle heart charm. A wearable memory you never have to put down.",
-    "image": "https://images.pexels.com/photos/1152077/pexels-photo-1152077.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "image": "/images/products/4.webp",
     "customizable": true
   },
   {
@@ -66,7 +66,7 @@
     "isBestSeller": true,
     "shortDescription": "Layered with candles, chocolates and a hand-tied pipe cleaner bloom.",
     "description": "A curated ivory hamper layered with artisan candles, premium dark chocolates, a hand-tied pipe cleaner bloom, and a personalised message card. Wrapped in our signature ivory tissue and sealed with a gold ELAROSE sticker. A complete gifting experience in one beautiful box.",
-    "image": "https://images.pexels.com/photos/5632386/pexels-photo-5632386.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "image": "/images/products/5.webp",
     "customizable": true
   },
   {
@@ -77,10 +77,10 @@
     "categorySlug": "hampers",
     "occasion": ["Anniversary", "Wedding"],
     "price": 5499,
-    "isBestSeller": true,
+    "isBestSeller": false,
     "shortDescription": "Deep maroon, gold ribbon, and indulgences chosen for them.",
     "description": "A bold and luxurious hamper in deep maroon velvet. Filled with premium chocolates, a scented candle, a handpicked book or journal, and a crimson pipe cleaner rose. Finished with a hand-tied gold ribbon and a personalised wax-sealed card.",
-    "image": "https://images.pexels.com/photos/6044266/pexels-photo-6044266.jpeg?auto=compress&cs=tinysrgb&w=800",
+   "image": "/images/products/6.webp",
     "customizable": true
   },
   {
@@ -91,10 +91,10 @@
     "categorySlug": "hampers",
     "occasion": ["Wedding", "Special Surprise"],
     "price": 6799,
-    "isBestSeller": false,
+    "isBestSeller": true,
     "shortDescription": "For the bride: floral, fragrance, and forever notes.",
     "description": "Crafted for the bride-to-be. A dream hamper filled with floral-scented skincare, a blush pipe cleaner bouquet, a personalised bridal card, artisan chocolates, and a luxe candle. Wrapped in ivory and tied with blush satin. Every piece chosen to make her feel cherished.",
-    "image": "https://images.pexels.com/photos/931177/pexels-photo-931177.jpeg?auto=compress&cs=tinysrgb&w=800",
+   "image": "/images/products/7.webp",
     "customizable": true
   },
   {
@@ -108,35 +108,7 @@
     "isBestSeller": false,
     "shortDescription": "A custom-built keepsake box. Tell us your story, we sculpt it.",
     "description": "A completely personalised memory box built around your story. You tell us the occasion, the person, the memories — and we fill it with a curated mix of pipe cleaner florals, photos, mementos, a handwritten letter, and meaningful trinkets. Truly one of a kind.",
-    "image": "https://images.pexels.com/photos/5632371/pexels-photo-5632371.jpeg?auto=compress&cs=tinysrgb&w=800",
-    "customizable": true
-  },
-  {
-    "id": "p9",
-    "slug": "petal-letter-frame",
-    "title": "Petal Letter Frame",
-    "category": "Custom Gifts",
-    "categorySlug": "custom",
-    "occasion": ["Birthday", "Anniversary"],
-    "price": 2199,
-    "isBestSeller": false,
-    "shortDescription": "Handwritten love, framed with pressed pipe cleaner florals.",
-    "description": "A stunning framed piece combining a personalised handwritten letter or name with delicate pipe cleaner florals arranged around it. Every frame is made to order — choose the initials, the colors, the florals, and the message. A keepsake that belongs on their wall forever.",
-    "image": "https://images.pexels.com/photos/4226896/pexels-photo-4226896.jpeg?auto=compress&cs=tinysrgb&w=800",
-    "customizable": true
-  },
-  {
-    "id": "p10",
-    "slug": "birthday-surprise-bundle",
-    "title": "Birthday Surprise Bundle",
-    "category": "Custom Gifts",
-    "categorySlug": "custom",
-    "occasion": ["Birthday"],
-    "price": 2899,
-    "isBestSeller": true,
-    "shortDescription": "Bouquet + keychain + handwritten card. The classic.",
-    "description": "The ultimate birthday combination. A handcrafted pipe cleaner bouquet, a personalised initial keychain, and a hand-lettered birthday card — all wrapped in ELAROSE signature packaging. Everything they need to feel completely celebrated.",
-    "image": "https://images.pexels.com/photos/6044299/pexels-photo-6044299.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "image": "/images/products/8.webp",
     "customizable": true
   }
 ]

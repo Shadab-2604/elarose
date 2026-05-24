@@ -4,7 +4,7 @@
     "title": "Pipe Cleaner Bouquets",
     "shortTitle": "Bouquets",
     "description": "Eternal blooms that never wilt, never brown, never fade.",
-    "image": "https://images.pexels.com/photos/931177/pexels-photo-931177.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "image": "/images/products/bouquet.jpg",
     "href": "/products?category=bouquets"
   },
   {
@@ -12,7 +12,7 @@
     "title": "Personalized Keychains",
     "shortTitle": "Keychains",
     "description": "Carry a name, a date, or a memory everywhere you go.",
-    "image": "https://images.pexels.com/photos/1191536/pexels-photo-1191536.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "image": "/images/products/keychain.webp",
     "href": "/products?category=keychains"
   },
   {
@@ -20,7 +20,7 @@
     "title": "Luxury Hampers",
     "shortTitle": "Hampers",
     "description": "Curated indulgence in our signature premium packaging.",
-    "image": "https://images.pexels.com/photos/5632386/pexels-photo-5632386.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "image": "/images/products/hamper.jpg",
     "href": "/products?category=hampers"
   },
   {
@@ -28,7 +28,7 @@
     "title": "Custom Gifts",
     "shortTitle": "Custom Gifts",
     "description": "Completely personalized gifts built around your story.",
-    "image": "https://images.pexels.com/photos/5632371/pexels-photo-5632371.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "image": "/images/products/custom.png",
     "href": "/products?category=custom"
   }
 ]

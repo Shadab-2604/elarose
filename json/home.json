@@ -8,7 +8,7 @@
     "badges": ["100% Handmade", "Pan India Delivery", "Customizable"],
     "rating": "4.9",
     "ratingCount": "200+ happy customers",
-    "heroImage": "https://images.pexels.com/photos/931177/pexels-photo-931177.jpeg?auto=compress&cs=tinysrgb&w=1200"
+    "heroImage": "/images/products/keychain.webp"
   },
   "bestSellersHeading": "Best Sellers",
   "bestSellersSubheading": "The pieces our customers can't stop gifting.",
@@ -64,19 +64,19 @@
   "packagingSubheading": "Unboxing is part of the gift. Every parcel is an experience unto itself.",
   "packagingImages": [
     {
-      "src": "https://images.pexels.com/photos/5560046/pexels-photo-5560046.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "src": "/images/products/1.webp",
       "alt": "ELAROSE gift box with ribbon"
     },
     {
-      "src": "https://images.pexels.com/photos/3716340/pexels-photo-3716340.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "src": "/images/products/2.webp",
       "alt": "Handwritten thank you card"
     },
     {
-      "src": "https://images.pexels.com/photos/6044266/pexels-photo-6044266.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "src": "/images/products/3.webp",
       "alt": "Brand sticker and gift wrap"
     },
     {
-      "src": "https://images.pexels.com/photos/6044299/pexels-photo-6044299.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "src": "/images/products/4.webp",
       "alt": "Luxury wrapped gift"
     }
   ],

@@ -149,8 +149,8 @@ export default function HeroSection({ data }: { data: HeroData }) {
             className="absolute -bottom-4 -left-4 bg-white rounded-xl shadow-lg px-4 py-3 border border-blush-200"
           >
             <p className="text-[10px] tracking-[0.15em] uppercase text-gold-500 mb-0.5" style={{fontFamily:"'Cormorant Garamond',serif"}}>Best Seller</p>
-            <p className="text-sm font-semibold text-text" style={{fontFamily:"'Playfair Display',serif"}}>Rosé Eternity Bouquet</p>
-            <p className="text-xs text-maroon font-medium">₹2,499</p>
+            <p className="text-sm font-semibold text-text" style={{fontFamily:"'Playfair Display',serif"}}>Elarose Keychains</p>
+            <p className="text-xs text-maroon font-medium">₹99</p>
           </motion.div>
         </motion.div>
       </div>

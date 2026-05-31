@@ -1,64 +1,108 @@
 [
   {
-    "id": "shipping",
-    "title": "Shipping Policy",
+    "id": "payment",
+    "title": "Payment Terms",
     "content": [
-      "All orders are processed within 2–4 business days after order confirmation.",
-      "Standard delivery across India typically takes 5–8 business days depending on location.",
-      "Express delivery (2–3 business days) is available for select pin codes at an additional charge.",
-      "Shipping charges are calculated at checkout based on the delivery location and order weight.",
-      "Once dispatched, you will receive a tracking link via Instagram.",
-      "For orders within Mumbai, same-day or next-day delivery may be available on request.",
-      "ELAROSE is not responsible for delays caused by courier partners, natural events, or incorrect address details provided by the customer.",
-      "All products are carefully packaged to ensure they arrive in perfect condition."
+      "A 50% advance payment is required to confirm and secure your order.",
+      "The remaining payment must be completed before dispatch of the order.",
+      "Orders will only enter production after payment confirmation.",
+      "Payments can be made through UPI and other available payment methods shared by ELAROSE.",
+      "Cash on Delivery (COD) is available only for selected local areas and approved orders.",
+      "Payment screenshots alone are not considered proof of payment until verification is completed.",
+      "For bulk or custom orders, full or partial advance payment may be required before work begins."
     ]
   },
   {
-    "id": "refund",
-    "title": "Refund Policy",
+    "id": "processing",
+    "title": "Order Processing",
     "content": [
-      "As every piece is handcrafted to order, we are unable to offer refunds on customised items.",
-      "In the rare event your order arrives damaged, please share unboxing photos within 24 hours of delivery.",
-      "We will gladly remake or replace the affected item at no extra cost — our promise to you.",
-      "If an incorrect item is delivered, please notify us within 24 hours and we will resolve it promptly.",
-      "Refunds for non-customised standard items may be considered on a case-by-case basis.",
-      "Refund requests must be raised via Instagram or email within 48 hours of delivery."
+      "Every ELAROSE product is handcrafted and made to order.",
+      "Standard production time is approximately 3–7 working days depending on design complexity and order volume.",
+      "Customised and bulk orders may require additional preparation time.",
+      "Rush orders may be accepted only after prior discussion and are subject to availability.",
+      "Production timelines begin only after payment confirmation.",
+      "Customers will receive order updates through Instagram or the order tracking page."
+    ]
+  },
+  {
+    "id": "shipping",
+    "title": "Shipping & Delivery",
+    "content": [
+      "We deliver across India.",
+      "Local area deliveries are generally completed within 1 day after dispatch.",
+      "Delivery timelines for other cities depend on courier partners and destination.",
+      "Shipping charges are separate from product prices unless stated otherwise.",
+      "Customers are responsible for providing complete and accurate delivery details.",
+      "Once an order is handed over to the courier, delivery delays caused by courier operations, weather, strikes, or other external factors are beyond our control.",
+      "Tracking information will be provided once the order is dispatched."
+    ]
+  },
+  {
+    "id": "packaging",
+    "title": "Special Packaging",
+    "content": [
+      "Every ELAROSE order is carefully packed with aesthetic and protective packaging.",
+      "Our products are designed to be gifting-ready upon arrival.",
+      "Different packaging styles may be offered depending on the occasion, such as birthdays, anniversaries, weddings, and special surprises.",
+      "Premium gift packaging and custom message cards may be available at additional cost.",
+      "We take extra care to ensure every package feels memorable and special."
     ]
   },
   {
     "id": "cancellation",
-    "title": "Cancellation Policy",
+    "title": "Cancellation & Changes",
     "content": [
-      "Orders can be cancelled within 2 hours of placement at no charge.",
-      "After 2 hours, cancellation is not possible as crafting begins immediately.",
-      "For bulk or custom orders with advance payment, cancellation is not possible after order confirmation.",
-      "In case of cancellation within the window, full payment will be refunded within 5–7 business days.",
-      "To cancel, please message us immediately on Instagram with your order details."
+      "Order cancellations are accepted within 24 hours of placing the order.",
+      "Once production has started, cancellations are not possible.",
+      "Customised or personalised orders cannot be cancelled after design approval or production begins.",
+      "Requests for changes in color, design, personalization, delivery details, or packaging should be communicated as early as possible.",
+      "Change requests may not be possible once the order enters production.",
+      "Approved cancellations will be processed within 5–7 business days."
+    ]
+  },
+  {
+    "id": "refund",
+    "title": "Refund & Replacement Policy",
+    "content": [
+      "As every product is handmade and made to order, refunds are generally not available.",
+      "If your order arrives damaged, please contact us within 24 hours of delivery and provide an unboxing video and photos.",
+      "Claims without an unboxing video may not qualify for replacement review.",
+      "If an incorrect item is delivered, we will arrange a replacement after verification.",
+      "Replacement decisions are made after reviewing the submitted evidence.",
+      "ELAROSE reserves the right to refuse fraudulent or unverifiable claims."
+    ]
+  },
+  {
+    "id": "reviews",
+    "title": "Customer Reviews",
+    "content": [
+      "Customer reviews, feedback, and gifting moments may be featured on our website and social media platforms.",
+      "We are grateful for every review, recommendation, and customer photo shared with us.",
+      "By sharing photos, videos, or testimonials with ELAROSE, you grant permission for us to repost them for promotional purposes unless requested otherwise.",
+      "We love celebrating your special moments and showcasing the joy our creations bring."
     ]
   },
   {
     "id": "privacy",
     "title": "Privacy Policy",
     "content": [
-      "We collect your name, phone number, address, and order details solely to process and deliver your orders.",
-      "Your personal information is never sold, shared, or disclosed to third parties.",
-      "We may use your contact details to send order updates and occasional gift inspiration — you can opt out anytime.",
-      "Our website does not store payment information; all transactions are handled securely via Instagram.",
-      "By placing an order, you consent to the collection and use of information as described.",
-      "We take all reasonable measures to protect your personal data from unauthorized access."
+      "We collect only the information required to process and deliver your order, including your name, contact details, and delivery address.",
+      "Your personal information is never sold or shared with third parties except when required for delivery services.",
+      "Payment information is not stored by ELAROSE.",
+      "We take reasonable measures to protect customer information.",
+      "Customer information is used only for order processing, communication, support, and delivery purposes."
     ]
   },
   {
     "id": "terms",
     "title": "Terms & Conditions",
     "content": [
-      "All products are handmade and may have slight variations in color and texture — this is the beauty of handcraft.",
-      "Product images are representative; actual items may vary slightly due to the handmade nature.",
-      "Prices are subject to change without prior notice. Orders are billed at the price confirmed at time of order.",
-      "ELAROSE reserves the right to refuse orders that violate our policies.",
-      "Bulk orders (5+ pieces) require a minimum lead time of 7 business days.",
-      "All designs, content, and branding on this website are the intellectual property of ELAROSE.",
-      "By placing an order, you agree to all terms and policies listed on this page."
+      "All ELAROSE products are handmade, and slight variations in color, shape, or finish are part of the handcrafted process.",
+      "Product photographs are representative and may differ slightly from the final handmade piece.",
+      "Prices may change without prior notice.",
+      "ELAROSE reserves the right to refuse or cancel orders that violate our policies.",
+      "By placing an order, customers agree to all policies and terms listed on this website.",
+      "All designs, photographs, branding, content, and creative assets belong to ELAROSE and may not be copied or reused without permission."
     ]
   }
 ]

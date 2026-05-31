@@ -3,40 +3,19 @@
 
 import { motion } from "framer-motion";
 
-export default function HowItWorksSection() {
-  const steps = [
-    {
-      number: "01",
-      title: "Send Reference",
-      description:
-        "DM us the screenshot or reference of the product or arrangement you want.",
-    },
-    {
-      number: "02",
-      title: "Share Details",
-      description:
-        "Tell us your preferred delivery date, colors, quantity and any add-ons.",
-    },
-    {
-      number: "03",
-      title: "Get Quote",
-      description:
-        "We'll share product details, pricing and availability.",
-    },
-    {
-      number: "04",
-      title: "Make Payment",
-      description:
-        "Confirm your order by completing the payment via UPI.",
-    },
-    {
-      number: "05",
-      title: "Order Confirmed",
-      description:
-        "Share your delivery details and we'll begin crafting your order.",
-    },
-  ];
+interface Step {
+  number: string;
+  title: string;
+  description: string;
+}
 
+interface HowItWorksSectionProps {
+  heading: string;
+  subheading: string;
+  steps: Step[];
+}
+
+export default function HowItWorksSection({ heading, subheading, steps }: HowItWorksSectionProps) {
   return (
     <section className="py-16 md:py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -46,11 +25,11 @@ export default function HowItWorksSection() {
           <p className="section-eyebrow">How To Order</p>
 
           <h2 className="section-heading">
-            Shopping With Us Is Super Easy
+            {heading}
           </h2>
 
           <p className="section-subheading mt-3 max-w-xl mx-auto">
-            Follow these simple steps to place your order.
+            {subheading}
           </p>
         </div>
 

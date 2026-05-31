@@ -5,7 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 
 interface HeroData {
-headline: string;
+  headline: string;
   headlineAccent: string;
   subheadline: string;
   ctaPrimary: string;

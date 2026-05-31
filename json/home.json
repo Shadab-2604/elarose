@@ -6,6 +6,8 @@
     "ctaPrimary": "Order on Instagram",
     "ctaSecondary": "View Products",
     "badges": ["100% Handmade", "Pan India Delivery", "Customizable"],
+    "rating": "4.9",
+    "ratingCount": "1.2k reviews",
     "heroImage": "/images/products/keychain.webp"
   },
   "bestSellersHeading": "Best Sellers",

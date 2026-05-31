@@ -95,7 +95,7 @@ export default function HeroSection({ data }: { data: HeroData }) {
           </motion.div>
 
           {/* Badges + Rating */}
-          <motion.div
+          {/* <motion.div
             custom={4}
             variants={fadeUp}
             initial="hidden"
@@ -120,7 +120,7 @@ export default function HeroSection({ data }: { data: HeroData }) {
                 </span>
               ))}
             </div>
-          </motion.div>
+          </motion.div> */}
         </div>
 
         {/* Right: Image */}

@@ -10,7 +10,7 @@
     "isBestSeller": false,
     "shortDescription": "Fresh white daisies that stay beautiful forever.",
     "description": "A handcrafted daisy arrangement featuring bright white petals and vibrant yellow centres in a decorative pot.",
-    "image": "/images/products/coming-soon.png",
+    "image": "/images/products/1.webp",
     "customizable": true
   },
   {
@@ -24,7 +24,7 @@
     "isBestSeller": false,
     "shortDescription": "A bright handcrafted sunflower that never fades.",
     "description": "Handmade sunflower crafted from premium pipe cleaners and arranged in a decorative pot. Perfect for desks, study tables and thoughtful gifts.",
-    "image": "/images/products/coming-soon.png",
+    "image": "/images/products/2.webp",
     "customizable": true
   },
   {
@@ -38,7 +38,7 @@
     "isBestSeller": false,
     "shortDescription": "Elegant pink tulip handcrafted from soft pipe cleaners.",
     "description": "A graceful handmade tulip arrangement designed with soft pastel tones and minimal styling.",
-    "image": "/images/products/coming-soon.png",
+    "image": "/images/products/3.webp",
     "customizable": true
   },
   {
@@ -52,7 +52,7 @@
     "isBestSeller": false,
     "shortDescription": "A miniature garden filled with handcrafted roses.",
     "description": "Multiple handcrafted roses arranged together to create a charming mini rose garden in a decorative pot.",
-    "image": "/images/products/coming-soon.png",
+    "image": "/images/products/4.webp",
     "customizable": true
   },
   {
@@ -66,7 +66,7 @@
     "isBestSeller": false,
     "shortDescription": "A colourful floral arrangement inspired by a sunny garden.",
     "description": "A handcrafted mixed-flower arrangement featuring sunflower-inspired blooms and decorative floral accents in a premium pot.",
-    "image": "/images/products/coming-soon.png",
+    "image": "/images/products/5.webp",
     "customizable": true
   },
   {
@@ -80,7 +80,7 @@
     "isBestSeller": false,
     "shortDescription": "A handcrafted sunflower that brings warmth and positivity.",
     "description": "A vibrant golden sunflower arrangement crafted from premium pipe cleaners and displayed in a decorative pot.",
-    "image": "/images/products/coming-soon.png",
+    "image": "/images/products/6.webp",
     "customizable": true
   },
   {
@@ -94,7 +94,7 @@
     "isBestSeller": false,
     "shortDescription": "A vibrant arrangement of purple handcrafted blooms.",
     "description": "A beautiful collection of handmade purple flowers arranged in a decorative pot. Adds charm and colour to any space.",
-    "image": "/images/products/coming-soon.png",
+    "image": "/images/products/7.webp",
     "customizable": true
   },
   {
@@ -108,7 +108,105 @@
     "isBestSeller": false,
     "shortDescription": "A timeless red rose handcrafted with love.",
     "description": "A handcrafted red rose with detailed leaves and rose bud, presented in a decorative pot. A perfect symbol of love and affection.",
-    "image": "/images/products/coming-soon.png",
+    "image": "/images/products/8.webp",
+    "customizable": true
+  },
+  {
+    "id": "p9",
+    "slug": "pearl-daisy-keychain",
+    "title": "Pearl Daisy Keychain",
+    "category": "Keychains",
+    "categorySlug": "keychains",
+    "occasion": ["Birthday", "Friendship", "Return Gift"],
+    "price": 149,
+    "isBestSeller": false,
+    "shortDescription": "A cheerful daisy keychain paired with elegant pearl accents.",
+    "description": "Handcrafted white daisy made from premium pipe cleaners, finished with a pearl loop and green leaves. A charming accessory for bags, purses and keys.",
+    "image": "/images/products/k1.webp",
+    "customizable": true
+  },
+  {
+    "id": "p10",
+    "slug": "lavender-lily-keychain",
+    "title": "Lavender Lily Keychain",
+    "category": "Keychains",
+    "categorySlug": "keychains",
+    "occasion": ["Birthday", "Friendship", "Special Surprise"],
+    "price": 149,
+    "isBestSeller": false,
+    "shortDescription": "A delicate lavender lily handcrafted with intricate details.",
+    "description": "Elegant lavender flower keychain made from premium pipe cleaners. Lightweight, aesthetic and perfect for daily use.",
+    "image": "/images/products/k2.webp",
+    "customizable": true
+  },
+  {
+    "id": "p11",
+    "slug": "sunflower-bloom-keychain",
+    "title": "Sunflower Bloom Keychain",
+    "category": "Keychains",
+    "categorySlug": "keychains",
+    "occasion": ["Birthday", "Teacher Gift", "Special Surprise"],
+    "price": 149,
+    "isBestSeller": false,
+    "shortDescription": "A bright sunflower keychain that spreads happiness.",
+    "description": "Handcrafted sunflower keychain featuring vibrant yellow petals and detailed green leaves. Perfect for keys and bags.",
+    "image": "/images/products/k3.webp",
+    "customizable": true
+  },
+  {
+    "id": "p12",
+    "slug": "strawberry-pearl-keychain",
+    "title": "Strawberry Pearl Keychain",
+    "category": "Keychains",
+    "categorySlug": "keychains",
+    "occasion": ["Birthday", "Return Gift", "Friendship"],
+    "price": 149,
+    "isBestSeller": false,
+    "shortDescription": "A cute strawberry charm with a pearl handle.",
+    "description": "Handcrafted strawberry keychain paired with elegant pearl beads and floral accents. A playful accessory for everyday use.",
+    "image": "/images/products/k4.webp",
+    "customizable": true
+  },
+  {
+    "id": "p13",
+    "slug": "pink-rose-pearl-keychain",
+    "title": "Pink Rose Pearl Keychain",
+    "category": "Keychains",
+    "categorySlug": "keychains",
+    "occasion": ["Birthday", "Anniversary", "Special Surprise"],
+    "price": 149,
+    "isBestSeller": false,
+    "shortDescription": "A handcrafted pink rose finished with pearl details.",
+    "description": "Beautiful pink rose keychain made from premium pipe cleaners and paired with a pearl loop for an elegant look.",
+    "image": "/images/products/k5.webp",
+    "customizable": true
+  },
+  {
+    "id": "p14",
+    "slug": "red-rose-pearl-keychain",
+    "title": "Red Rose Pearl Keychain",
+    "category": "Keychains",
+    "categorySlug": "keychains",
+    "occasion": ["Valentine", "Anniversary", "Romantic Gift"],
+    "price": 149,
+    "isBestSeller": false,
+    "shortDescription": "A romantic red rose keychain with pearl accents.",
+    "description": "Handcrafted red rose keychain designed with elegant pearl details, making it a perfect keepsake gift.",
+    "image": "/images/products/k6.webp",
+    "customizable": true
+  },
+  {
+    "id": "p15",
+    "slug": "pink-daisy-keychain",
+    "title": "Pink Daisy Keychain",
+    "category": "Keychains",
+    "categorySlug": "keychains",
+    "occasion": ["Birthday", "Friendship", "Return Gift"],
+    "price": 149,
+    "isBestSeller": false,
+    "shortDescription": "A sweet pink daisy keychain handcrafted with care.",
+    "description": "Handmade pink daisy keychain featuring soft pastel tones and green leaves. A charming accessory for keys, bags and gifts.",
+    "image": "/images/products/k7.webp",
     "customizable": true
   }
 ]

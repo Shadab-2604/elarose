@@ -1,33 +1,33 @@
 [
   {
-    "id": "bouquets",
-    "title": "Pipe Cleaner Bouquets",
-    "shortTitle": "Bouquets",
-    "description": "Eternal blooms that never wilt, never brown, never fade.",
-    "image": "/images/products/bouquet.jpg",
-    "href": "/products?category=bouquets"
+    "id": "pots",
+    "title": "Flower Pots",
+    "shortTitle": "Flower Pots",
+    "description": "Handcrafted floral pots that stay beautiful forever.",
+    "image": "/images/products/2.webp",
+    "href": "/products?category=pots"
   },
   {
     "id": "keychains",
-    "title": "Personalized Keychains",
+    "title": "Flower Keychains",
     "shortTitle": "Keychains",
-    "description": "Carry a name, a date, or a memory everywhere you go.",
-    "image": "/images/products/keychain.webp",
+    "description": "Cute handmade floral keychains crafted with love.",
+    "image": "/images/products/k3.webp",
     "href": "/products?category=keychains"
   },
   {
-    "id": "hampers",
-    "title": "Luxury Hampers",
-    "shortTitle": "Hampers",
-    "description": "Curated indulgence in our signature premium packaging.",
-    "image": "/images/products/hamper.jpg",
-    "href": "/products?category=hampers"
+    "id": "bouquets",
+    "title": "Coming Soon",
+    "shortTitle": "Bouquets",
+    "description": "Beautiful handcrafted bouquets launching soon.",
+    "image": "/images/products/coming-soon.png",
+    "href": "/products?category=bouquets"
   },
   {
     "id": "custom",
-    "title": "Custom Gifts",
-    "shortTitle": "Custom Gifts",
-    "description": "Completely personalized gifts built around your story.",
+    "title": "Custom Orders",
+    "shortTitle": "Custom",
+    "description": "Personalized creations made just for you.",
     "image": "/images/products/custom.png",
     "href": "/products?category=custom"
   }

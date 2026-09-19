@@ -20,6 +20,7 @@ import {
   List,
   RefreshCw,
   FolderEdit,
+  Sparkles,
 } from "lucide-react";
 import SectionWrapper from "@/components/SectionWrapper";
 
@@ -45,6 +46,17 @@ interface CategoryCount {
   count: number;
 }
 
+interface FeaturedCat {
+  id: string;
+  _id?: string;
+  title: string;
+  shortTitle: string;
+  description: string;
+  image: string;
+  href: string;
+  order?: number;
+}
+
 export default function AdminPage() {
   const { user, loading, openAuthModal } = useAuth();
 
@@ -64,6 +76,26 @@ export default function AdminPage() {
   const [editingCategoryName, setEditingCategoryName] = useState<string | null>(null);
   const [newCatNameInput, setNewCatNameInput] = useState("");
 
+  // Featured Categories Modal State
+  const [isFeaturedModalOpen, setIsFeaturedModalOpen] = useState(false);
+  const [featuredCats, setFeaturedCats] = useState<FeaturedCat[]>([]);
+  const [savingFeatured, setSavingFeatured] = useState(false);
+  const [uploadingCatImgIndex, setUploadingCatImgIndex] = useState<number | null>(null);
+  const [featuredStatusMsg, setFeaturedStatusMsg] = useState({ type: "", text: "" });
+
+  // Hero Section Manager Modal State
+  const [isHeroModalOpen, setIsHeroModalOpen] = useState(false);
+  const [heroImage, setHeroImage] = useState("/images/products/keychain.webp");
+  const [floatingTagBadge, setFloatingTagBadge] = useState("Best Seller");
+  const [floatingTagTitle, setFloatingTagTitle] = useState("Elarose Keychains");
+  const [floatingTagPrice, setFloatingTagPrice] = useState("₹99");
+  const [heroHeadline, setHeroHeadline] = useState("Handmade Luxury Gifts Crafted");
+  const [heroHeadlineAccent, setHeroHeadlineAccent] = useState("With Love");
+  const [heroSubheadline, setHeroSubheadline] = useState("Personalized bouquets, handmade keychains, premium hampers and memorable custom gifting.");
+  const [uploadingHeroImage, setUploadingHeroImage] = useState(false);
+  const [savingHero, setSavingHero] = useState(false);
+  const [heroStatusMsg, setHeroStatusMsg] = useState({ type: "", text: "" });
+
   // Product Form Fields
   const [title, setTitle] = useState("");
   const [categorySelect, setCategorySelect] = useState("Flower Pots");
@@ -80,6 +112,38 @@ export default function AdminPage() {
   const [uploadingImage, setUploadingImage] = useState(false);
   const [savingProduct, setSavingProduct] = useState(false);
   const [statusMessage, setStatusMessage] = useState({ type: "", text: "" });
+
+  const fetchFeaturedCategories = useCallback(async () => {
+    try {
+      const res = await fetch("/api/featured-categories", { cache: "no-store" });
+      if (res.ok) {
+        const data = await res.json();
+        setFeaturedCats(data.categories || []);
+      }
+    } catch (err) {
+      console.error("Failed to fetch featured categories:", err);
+    }
+  }, []);
+
+  const fetchHeroSettings = useCallback(async () => {
+    try {
+      const res = await fetch("/api/hero", { cache: "no-store" });
+      if (res.ok) {
+        const data = await res.json();
+        if (data.hero) {
+          setHeroImage(data.hero.heroImage || "/images/products/keychain.webp");
+          setFloatingTagBadge(data.hero.floatingTagBadge || "Best Seller");
+          setFloatingTagTitle(data.hero.floatingTagTitle || "Elarose Keychains");
+          setFloatingTagPrice(data.hero.floatingTagPrice || "₹99");
+          setHeroHeadline(data.hero.headline || "Handmade Luxury Gifts Crafted");
+          setHeroHeadlineAccent(data.hero.headlineAccent || "With Love");
+          setHeroSubheadline(data.hero.subheadline || "Personalized bouquets, handmade keychains, premium hampers and memorable custom gifting.");
+        }
+      }
+    } catch (err) {
+      console.error("Failed to fetch hero settings:", err);
+    }
+  }, []);
 
   const fetchProductsAndCategories = useCallback(async () => {
     setFetching(true);
@@ -98,12 +162,13 @@ export default function AdminPage() {
         const dataCat = await resCat.json();
         setCategoriesList(dataCat.categories || []);
       }
+      await Promise.all([fetchHeroSettings(), fetchFeaturedCategories()]);
     } catch (err) {
       console.error("Failed to fetch admin data:", err);
     } finally {
       setFetching(false);
     }
-  }, []);
+  }, [fetchHeroSettings, fetchFeaturedCategories]);
 
   useEffect(() => {
     fetchProductsAndCategories();
@@ -317,6 +382,145 @@ export default function AdminPage() {
     }
   };
 
+  // Hero Section Handlers
+  const handleHeroImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files || files.length === 0) return;
+
+    const file = files[0];
+    const formData = new FormData();
+    formData.append("file", file);
+
+    setUploadingHeroImage(true);
+    setHeroStatusMsg({ type: "info", text: "Uploading hero image to Cloudinary..." });
+
+    try {
+      const res = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await res.json();
+      if (res.ok && data.url) {
+        setHeroImage(data.url);
+        setHeroStatusMsg({ type: "success", text: "Hero image uploaded to Cloudinary successfully!" });
+      } else {
+        setHeroStatusMsg({ type: "error", text: data.message || "Failed to upload image" });
+      }
+    } catch (err: any) {
+      setHeroStatusMsg({ type: "error", text: err.message || "Upload error" });
+    } finally {
+      setUploadingHeroImage(false);
+    }
+  };
+
+  const handleSaveHero = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!heroImage.trim()) {
+      setHeroStatusMsg({ type: "error", text: "Hero image is required" });
+      return;
+    }
+
+    setSavingHero(true);
+    setHeroStatusMsg({ type: "info", text: "Saving Hero Section settings..." });
+
+    try {
+      const res = await fetch("/api/hero", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          heroImage: heroImage.trim(),
+          floatingTagBadge: floatingTagBadge.trim(),
+          floatingTagTitle: floatingTagTitle.trim(),
+          floatingTagPrice: floatingTagPrice.trim(),
+          headline: heroHeadline.trim(),
+          headlineAccent: heroHeadlineAccent.trim(),
+          subheadline: heroSubheadline.trim(),
+        }),
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        setHeroStatusMsg({ type: "success", text: "Hero section updated successfully!" });
+        fetchHeroSettings();
+        setTimeout(() => {
+          setIsHeroModalOpen(false);
+          setHeroStatusMsg({ type: "", text: "" });
+        }, 800);
+      } else {
+        setHeroStatusMsg({ type: "error", text: data.message || "Failed to update Hero section" });
+      }
+    } catch (err: any) {
+      setHeroStatusMsg({ type: "error", text: err.message || "Save error" });
+    } finally {
+      setSavingHero(false);
+    }
+  };
+
+  // Featured Categories Handlers
+  const handleCatImageUpload = async (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
+    const files = e.target.files;
+    if (!files || files.length === 0) return;
+
+    const file = files[0];
+    const formData = new FormData();
+    formData.append("file", file);
+
+    setUploadingCatImgIndex(index);
+    setFeaturedStatusMsg({ type: "info", text: `Uploading image for category ${index + 1}...` });
+
+    try {
+      const res = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await res.json();
+      if (res.ok && data.url) {
+        setFeaturedCats((prev) =>
+          prev.map((c, i) => (i === index ? { ...c, image: data.url } : c))
+        );
+        setFeaturedStatusMsg({ type: "success", text: "Category image uploaded to Cloudinary successfully!" });
+      } else {
+        setFeaturedStatusMsg({ type: "error", text: data.message || "Failed to upload image" });
+      }
+    } catch (err: any) {
+      setFeaturedStatusMsg({ type: "error", text: err.message || "Upload error" });
+    } finally {
+      setUploadingCatImgIndex(null);
+    }
+  };
+
+  const handleSaveFeaturedCategories = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSavingFeatured(true);
+    setFeaturedStatusMsg({ type: "info", text: "Saving Featured Categories..." });
+
+    try {
+      const res = await fetch("/api/featured-categories", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ categories: featuredCats }),
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        setFeaturedStatusMsg({ type: "success", text: "Featured categories saved successfully!" });
+        if (data.categories) setFeaturedCats(data.categories);
+        setTimeout(() => {
+          setIsFeaturedModalOpen(false);
+          setFeaturedStatusMsg({ type: "", text: "" });
+        }, 800);
+      } else {
+        setFeaturedStatusMsg({ type: "error", text: data.message || "Failed to save featured categories" });
+      }
+    } catch (err: any) {
+      setFeaturedStatusMsg({ type: "error", text: err.message || "Save error" });
+    } finally {
+      setSavingFeatured(false);
+    }
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen pt-32 flex justify-center items-center bg-ivory">
@@ -389,6 +593,22 @@ export default function AdminPage() {
             </button>
 
             <button
+              onClick={() => setIsHeroModalOpen(true)}
+              className="flex items-center gap-2 bg-blush-100 text-maroon border border-maroon/30 font-medium text-xs px-4 py-3 rounded-full hover:bg-blush-200 transition-all shadow-sm"
+            >
+              <Sparkles size={16} />
+              <span>Update Hero Section</span>
+            </button>
+
+            <button
+              onClick={() => setIsFeaturedModalOpen(true)}
+              className="flex items-center gap-2 bg-white text-maroon border border-maroon/30 font-medium text-xs px-4 py-3 rounded-full hover:bg-blush-50 transition-all shadow-sm"
+            >
+              <Grid size={16} />
+              <span>Featured Cards ({featuredCats.length})</span>
+            </button>
+
+            <button
               onClick={() => setIsCategoryModalOpen(true)}
               className="flex items-center gap-2 bg-white text-maroon border border-maroon/30 font-medium text-xs px-4 py-3 rounded-full hover:bg-blush-50 transition-all shadow-sm"
             >
@@ -407,7 +627,7 @@ export default function AdminPage() {
         </div>
 
         {/* Stats Bar */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           <div className="bg-white p-5 rounded-2xl border border-blush-200 shadow-sm flex items-center gap-4">
             <div className="p-3 bg-blush-100 text-maroon rounded-xl">
               <Package size={24} />
@@ -435,6 +655,23 @@ export default function AdminPage() {
             <div>
               <p className="text-xs text-text-muted">Active Categories</p>
               <p className="text-2xl font-semibold text-maroon font-playfair">{categoriesCount}</p>
+            </div>
+          </div>
+
+          <div
+            onClick={() => setIsHeroModalOpen(true)}
+            className="bg-white p-5 rounded-2xl border border-blush-200 shadow-sm flex items-center gap-4 cursor-pointer hover:border-maroon/50 transition-all group"
+          >
+            <div className="p-3 bg-purple-50 text-purple-600 rounded-xl group-hover:scale-105 transition-transform">
+              <Sparkles size={24} />
+            </div>
+            <div className="overflow-hidden">
+              <p className="text-xs text-text-muted flex items-center justify-between">
+                <span>Hero Highlight</span>
+                <span className="text-[10px] text-maroon underline font-medium">Edit</span>
+              </p>
+              <p className="text-sm font-semibold text-maroon truncate">{floatingTagTitle || "Elarose Keychains"}</p>
+              <p className="text-xs text-text-muted font-medium">{floatingTagBadge} · {floatingTagPrice}</p>
             </div>
           </div>
         </div>
@@ -968,6 +1205,407 @@ export default function AdminPage() {
                 >
                   {savingProduct ? "Saving..." : editingProduct ? "Update Product" : "Create Product"}
                 </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Hero Section Manager Modal */}
+      {isHeroModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm overflow-y-auto">
+          <div className="relative w-full max-w-2xl bg-white rounded-2xl shadow-2xl overflow-hidden border border-blush-200 my-8">
+            <div className="flex items-center justify-between p-6 bg-ivory border-b border-blush-200">
+              <div className="flex items-center gap-2 text-maroon">
+                <Sparkles size={20} />
+                <h2 className="text-xl font-semibold font-playfair" style={{fontFamily:"'Playfair Display',serif"}}>
+                  Update Hero Section
+                </h2>
+              </div>
+              <button
+                onClick={() => setIsHeroModalOpen(false)}
+                className="p-1.5 text-text-muted hover:text-maroon rounded-full transition-colors"
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            <form onSubmit={handleSaveHero} className="p-6 space-y-5 max-h-[80vh] overflow-y-auto">
+              {heroStatusMsg.text && (
+                <div
+                  className={`p-3.5 text-xs rounded-xl border flex items-center gap-2 ${
+                    heroStatusMsg.type === "success"
+                      ? "bg-emerald-50 text-emerald-700 border-emerald-200"
+                      : heroStatusMsg.type === "error"
+                      ? "bg-red-50 text-red-700 border-red-200"
+                      : "bg-blue-50 text-blue-700 border-blue-200"
+                  }`}
+                >
+                  <CheckCircle2 size={16} />
+                  <span>{heroStatusMsg.text}</span>
+                </div>
+              )}
+
+              {/* Live Preview Card */}
+              <div className="p-4 bg-ivory/80 rounded-2xl border border-blush-200">
+                <p className="text-[11px] font-semibold text-maroon uppercase tracking-wider mb-2">Live Preview Overlay</p>
+                <div className="flex flex-col sm:flex-row items-center gap-4">
+                  <div className="relative w-36 aspect-[4/5] rounded-xl overflow-hidden shadow-md bg-blush-50 border border-blush-200 flex-shrink-0">
+                    <Image
+                      src={heroImage || "/images/products/keychain.webp"}
+                      alt="Hero Preview"
+                      fill
+                      className="object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-maroon/20 to-transparent" />
+                    <div className="absolute bottom-2 left-2 right-2 bg-white/95 backdrop-blur-xs rounded-lg p-2 shadow-lg border border-blush-200">
+                      <p className="text-[9px] uppercase tracking-wider text-gold-500 font-semibold">{floatingTagBadge || "Best Seller"}</p>
+                      <p className="text-xs font-semibold text-text truncate">{floatingTagTitle || "Elarose Keychains"}</p>
+                      <p className="text-[11px] font-medium text-maroon">{floatingTagPrice || "₹99"}</p>
+                    </div>
+                  </div>
+                  <div className="text-xs text-text-muted space-y-1">
+                    <p className="font-medium text-text text-sm">{heroHeadline} <span className="text-maroon italic">{heroHeadlineAccent}</span></p>
+                    <p className="line-clamp-2">{heroSubheadline}</p>
+                    <div className="pt-2 flex items-center gap-2 text-[10px] text-maroon">
+                      <span className="px-2 py-0.5 bg-blush-100 rounded-full font-medium">Image + Floating Card Configured</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Floating Tag Settings */}
+              <div className="bg-blush-50/50 p-4 rounded-xl border border-blush-200 space-y-3">
+                <h3 className="text-xs font-semibold text-maroon uppercase tracking-wider">Floating Tag Details (Best Seller Badge)</h3>
+                
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  <div>
+                    <label className="block text-xs font-medium text-text mb-1">Badge Text *</label>
+                    <input
+                      type="text"
+                      required
+                      value={floatingTagBadge}
+                      onChange={(e) => setFloatingTagBadge(e.target.value)}
+                      placeholder="Best Seller"
+                      className="w-full px-3 py-2 text-xs bg-white border border-blush-200 rounded-xl focus:outline-none focus:border-maroon"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-medium text-text mb-1">Product Title *</label>
+                    <input
+                      type="text"
+                      required
+                      value={floatingTagTitle}
+                      onChange={(e) => setFloatingTagTitle(e.target.value)}
+                      placeholder="Elarose Keychains"
+                      className="w-full px-3 py-2 text-xs bg-white border border-blush-200 rounded-xl focus:outline-none focus:border-maroon"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-medium text-text mb-1">Price *</label>
+                    <input
+                      type="text"
+                      required
+                      value={floatingTagPrice}
+                      onChange={(e) => setFloatingTagPrice(e.target.value)}
+                      placeholder="₹99"
+                      className="w-full px-3 py-2 text-xs bg-white border border-blush-200 rounded-xl focus:outline-none focus:border-maroon"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Hero Image Upload & URL */}
+              <div>
+                <label className="block text-xs font-semibold text-text mb-1">Hero Section Main Image *</label>
+                <div className="space-y-2">
+                  <div className="flex items-center gap-3">
+                    <label className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-blush-100 hover:bg-blush-200 border border-dashed border-maroon/40 rounded-xl cursor-pointer text-xs text-maroon font-medium transition-colors">
+                      <Upload size={16} />
+                      <span>{uploadingHeroImage ? "Uploading to Cloudinary..." : "Upload New Hero Image"}</span>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleHeroImageUpload}
+                        disabled={uploadingHeroImage}
+                        className="hidden"
+                      />
+                    </label>
+                  </div>
+
+                  <div className="text-[11px] text-text-muted text-center">or enter image URL directly:</div>
+
+                  <input
+                    type="text"
+                    required
+                    value={heroImage}
+                    onChange={(e) => setHeroImage(e.target.value)}
+                    placeholder="https://res.cloudinary.com/... or /images/products/keychain.webp"
+                    className="w-full px-3.5 py-2.5 text-xs bg-blush-50/50 border border-blush-200 rounded-xl focus:outline-none focus:border-maroon"
+                  />
+                </div>
+              </div>
+
+              {/* Headline & Subheadline */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs font-semibold text-text mb-1">Headline Main Text</label>
+                  <input
+                    type="text"
+                    value={heroHeadline}
+                    onChange={(e) => setHeroHeadline(e.target.value)}
+                    placeholder="Handmade Luxury Gifts Crafted"
+                    className="w-full px-3.5 py-2 text-xs bg-blush-50/50 border border-blush-200 rounded-xl focus:outline-none focus:border-maroon"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-text mb-1">Headline Accent (Italic)</label>
+                  <input
+                    type="text"
+                    value={heroHeadlineAccent}
+                    onChange={(e) => setHeroHeadlineAccent(e.target.value)}
+                    placeholder="With Love"
+                    className="w-full px-3.5 py-2 text-xs bg-blush-50/50 border border-blush-200 rounded-xl focus:outline-none focus:border-maroon"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-text mb-1">Subheadline</label>
+                <textarea
+                  rows={2}
+                  value={heroSubheadline}
+                  onChange={(e) => setHeroSubheadline(e.target.value)}
+                  placeholder="Personalized bouquets, handmade keychains, premium hampers..."
+                  className="w-full px-3.5 py-2 text-xs bg-blush-50/50 border border-blush-200 rounded-xl focus:outline-none focus:border-maroon resize-none"
+                />
+              </div>
+
+              <div className="pt-4 border-t border-blush-200 flex justify-end gap-3">
+                <button
+                  type="button"
+                  onClick={() => setIsHeroModalOpen(false)}
+                  className="px-5 py-2.5 text-xs font-medium text-text-muted hover:text-text rounded-full transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={savingHero || uploadingHeroImage}
+                  className="px-6 py-2.5 bg-maroon text-white font-medium text-xs rounded-full hover:bg-maroon-950 transition-colors shadow-md disabled:opacity-50"
+                >
+                  {savingHero ? "Saving Settings..." : "Save Hero Section"}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Featured Categories Manager Modal */}
+      {isFeaturedModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm overflow-y-auto">
+          <div className="relative w-full max-w-4xl bg-white rounded-2xl shadow-2xl overflow-hidden border border-blush-200 my-8">
+            <div className="flex items-center justify-between p-6 bg-ivory border-b border-blush-200">
+              <div className="flex items-center gap-2 text-maroon">
+                <Grid size={20} />
+                <h2 className="text-xl font-semibold font-playfair" style={{fontFamily:"'Playfair Display',serif"}}>
+                  Featured Categories Management
+                </h2>
+              </div>
+              <button
+                onClick={() => setIsFeaturedModalOpen(false)}
+                className="p-1.5 text-text-muted hover:text-maroon rounded-full transition-colors"
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            <form onSubmit={handleSaveFeaturedCategories} className="p-6 space-y-6 max-h-[80vh] overflow-y-auto">
+              {featuredStatusMsg.text && (
+                <div
+                  className={`p-3.5 text-xs rounded-xl border flex items-center gap-2 ${
+                    featuredStatusMsg.type === "success"
+                      ? "bg-emerald-50 text-emerald-700 border-emerald-200"
+                      : featuredStatusMsg.type === "error"
+                      ? "bg-red-50 text-red-700 border-red-200"
+                      : "bg-blue-50 text-blue-700 border-blue-200"
+                  }`}
+                >
+                  <CheckCircle2 size={16} />
+                  <span>{featuredStatusMsg.text}</span>
+                </div>
+              )}
+
+              <p className="text-xs text-text-muted">
+                Update the cards displayed in the <strong>Featured Categories</strong> section on your homepage. Change images, titles, descriptions, or category links below.
+              </p>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {featuredCats.map((cat, idx) => (
+                  <div key={cat.id || idx} className="p-4 bg-ivory/60 rounded-2xl border border-blush-200 space-y-3">
+                    <div className="flex items-center justify-between border-b border-blush-100 pb-2">
+                      <span className="text-xs font-semibold text-maroon uppercase tracking-wider">Card #{idx + 1}: {cat.shortTitle || cat.title}</span>
+                      {featuredCats.length > 1 && (
+                        <button
+                          type="button"
+                          onClick={() => setFeaturedCats((prev) => prev.filter((_, i) => i !== idx))}
+                          className="text-[11px] text-red-600 hover:underline"
+                        >
+                          Remove
+                        </button>
+                      )}
+                    </div>
+
+                    <div className="flex items-start gap-4">
+                      {/* Image Preview */}
+                      <div className="relative w-24 aspect-[3/4] bg-blush-100 rounded-xl overflow-hidden shadow-sm flex-shrink-0 border border-blush-200">
+                        <Image src={cat.image || "/images/products/2.webp"} alt={cat.shortTitle} fill className="object-cover" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-maroon/60 via-transparent to-transparent" />
+                        <p className="absolute bottom-1.5 left-1.5 right-1.5 text-[10px] text-white font-semibold truncate">
+                          {cat.shortTitle}
+                        </p>
+                      </div>
+
+                      {/* Fields */}
+                      <div className="flex-1 space-y-2.5">
+                        <div>
+                          <label className="block text-[11px] font-semibold text-text mb-0.5">Card Image (Cloudinary)</label>
+                          <label className="flex items-center justify-center gap-1.5 px-3 py-1.5 bg-blush-100 hover:bg-blush-200 border border-dashed border-maroon/40 rounded-xl cursor-pointer text-xs text-maroon font-medium transition-colors mb-1">
+                            <Upload size={14} />
+                            <span>{uploadingCatImgIndex === idx ? "Uploading..." : "Upload Image"}</span>
+                            <input
+                              type="file"
+                              accept="image/*"
+                              onChange={(e) => handleCatImageUpload(e, idx)}
+                              disabled={uploadingCatImgIndex === idx}
+                              className="hidden"
+                            />
+                          </label>
+                          <input
+                            type="text"
+                            required
+                            value={cat.image}
+                            onChange={(e) =>
+                              setFeaturedCats((prev) =>
+                                prev.map((c, i) => (i === idx ? { ...c, image: e.target.value } : c))
+                              )
+                            }
+                            placeholder="Image URL..."
+                            className="w-full px-2.5 py-1.5 text-[11px] bg-white border border-blush-200 rounded-lg focus:outline-none focus:border-maroon"
+                          />
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-2">
+                          <div>
+                            <label className="block text-[11px] font-semibold text-text mb-0.5">Short Title *</label>
+                            <input
+                              type="text"
+                              required
+                              value={cat.shortTitle}
+                              onChange={(e) =>
+                                setFeaturedCats((prev) =>
+                                  prev.map((c, i) => (i === idx ? { ...c, shortTitle: e.target.value } : c))
+                                )
+                              }
+                              placeholder="Keychains"
+                              className="w-full px-2.5 py-1.5 text-[11px] bg-white border border-blush-200 rounded-lg focus:outline-none focus:border-maroon"
+                            />
+                          </div>
+
+                          <div>
+                            <label className="block text-[11px] font-semibold text-text mb-0.5">Full Title</label>
+                            <input
+                              type="text"
+                              value={cat.title}
+                              onChange={(e) =>
+                                setFeaturedCats((prev) =>
+                                  prev.map((c, i) => (i === idx ? { ...c, title: e.target.value } : c))
+                                )
+                              }
+                              placeholder="Flower Keychains"
+                              className="w-full px-2.5 py-1.5 text-[11px] bg-white border border-blush-200 rounded-lg focus:outline-none focus:border-maroon"
+                            />
+                          </div>
+                        </div>
+
+                        <div>
+                          <label className="block text-[11px] font-semibold text-text mb-0.5">Description *</label>
+                          <textarea
+                            rows={2}
+                            required
+                            value={cat.description}
+                            onChange={(e) =>
+                              setFeaturedCats((prev) =>
+                                prev.map((c, i) => (i === idx ? { ...c, description: e.target.value } : c))
+                              )
+                            }
+                            placeholder="Cute handmade keychains..."
+                            className="w-full px-2.5 py-1.5 text-[11px] bg-white border border-blush-200 rounded-lg focus:outline-none focus:border-maroon resize-none"
+                          />
+                        </div>
+
+                        <div>
+                          <label className="block text-[11px] font-semibold text-text mb-0.5">Link Href</label>
+                          <input
+                            type="text"
+                            value={cat.href}
+                            onChange={(e) =>
+                              setFeaturedCats((prev) =>
+                                prev.map((c, i) => (i === idx ? { ...c, href: e.target.value } : c))
+                              )
+                            }
+                            placeholder="/products?category=keychains"
+                            className="w-full px-2.5 py-1.5 text-[11px] bg-white border border-blush-200 rounded-lg focus:outline-none focus:border-maroon"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="flex justify-between items-center pt-3">
+                <button
+                  type="button"
+                  onClick={() =>
+                    setFeaturedCats((prev) => [
+                      ...prev,
+                      {
+                        id: `cat-${Date.now()}`,
+                        title: "New Category",
+                        shortTitle: "New Category",
+                        description: "Handcrafted personalized item",
+                        image: "/images/products/1.webp",
+                        href: "/products",
+                        order: prev.length,
+                      },
+                    ])
+                  }
+                  className="px-4 py-2 bg-blush-100 text-maroon text-xs font-semibold rounded-full hover:bg-blush-200 border border-maroon/20 transition-colors"
+                >
+                  + Add Category Card
+                </button>
+
+                <div className="flex gap-3">
+                  <button
+                    type="button"
+                    onClick={() => setIsFeaturedModalOpen(false)}
+                    className="px-5 py-2.5 text-xs font-medium text-text-muted hover:text-text rounded-full transition-colors"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={savingFeatured || uploadingCatImgIndex !== null}
+                    className="px-6 py-2.5 bg-maroon text-white font-medium text-xs rounded-full hover:bg-maroon-950 transition-colors shadow-md disabled:opacity-50"
+                  >
+                    {savingFeatured ? "Saving..." : "Save Featured Categories"}
+                  </button>
+                </div>
               </div>
             </form>
           </div>

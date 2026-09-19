@@ -64,15 +64,6 @@
       }
     }
   },
-  "/": {
-    "hints": 0,
-    "slots": {
-      "children": {
-        "hints": 128,
-        "slots": null
-      }
-    }
-  },
   "/policies": {
     "hints": 0,
     "slots": {

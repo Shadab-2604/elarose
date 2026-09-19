@@ -101,6 +101,18 @@
       "namedRegex": "^/api/categories(?:/)?$"
     },
     {
+      "page": "/api/featured-categories",
+      "regex": "^/api/featured\\-categories(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/featured\\-categories(?:/)?$"
+    },
+    {
+      "page": "/api/hero",
+      "regex": "^/api/hero(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/hero(?:/)?$"
+    },
+    {
       "page": "/api/products",
       "regex": "^/api/products(?:/)?$",
       "routeKeys": {},

@@ -8,6 +8,8 @@
   "/api/auth/me/route": "/api/auth/me",
   "/api/auth/register/route": "/api/auth/register",
   "/api/categories/route": "/api/categories",
+  "/api/featured-categories/route": "/api/featured-categories",
+  "/api/hero/route": "/api/hero",
   "/api/products/[id]/like/route": "/api/products/[id]/like",
   "/api/products/[id]/route": "/api/products/[id]",
   "/api/products/route": "/api/products",

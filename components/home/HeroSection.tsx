@@ -10,10 +10,13 @@ interface HeroData {
   subheadline: string;
   ctaPrimary: string;
   ctaSecondary: string;
-  badges: string[];
-  rating: string;
-  ratingCount: string;
+  badges?: string[];
+  rating?: string;
+  ratingCount?: string;
   heroImage: string;
+  floatingTagBadge?: string;
+  floatingTagTitle?: string;
+  floatingTagPrice?: string;
 }
 
 const INSTAGRAM_URL = "https://www.instagram.com/elarose_atelier?igsh=dDVwNDl6dDU3dWcx";
@@ -148,9 +151,15 @@ export default function HeroSection({ data }: { data: HeroData }) {
             transition={{ delay: 0.8, duration: 0.5 }}
             className="absolute -bottom-4 -left-4 bg-white rounded-xl shadow-lg px-4 py-3 border border-blush-200"
           >
-            <p className="text-[10px] tracking-[0.15em] uppercase text-gold-500 mb-0.5" style={{fontFamily:"'Cormorant Garamond',serif"}}>Best Seller</p>
-            <p className="text-sm font-semibold text-text" style={{fontFamily:"'Playfair Display',serif"}}>Elarose Keychains</p>
-            <p className="text-xs text-maroon font-medium">₹99</p>
+            <p className="text-[10px] tracking-[0.15em] uppercase text-gold-500 mb-0.5" style={{fontFamily:"'Cormorant Garamond',serif"}}>
+              {data.floatingTagBadge || "Best Seller"}
+            </p>
+            <p className="text-sm font-semibold text-text" style={{fontFamily:"'Playfair Display',serif"}}>
+              {data.floatingTagTitle || "Elarose Keychains"}
+            </p>
+            <p className="text-xs text-maroon font-medium">
+              {data.floatingTagPrice || "₹99"}
+            </p>
           </motion.div>
         </motion.div>
       </div>

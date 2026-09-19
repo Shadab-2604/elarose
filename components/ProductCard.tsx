@@ -2,9 +2,13 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { Heart } from "lucide-react";
+import { useAuth } from "@/context/AuthContext";
+import { useState } from "react";
 
 interface Product {
   id: string;
+  _id?: string;
   title: string;
   category: string;
   categorySlug: string;
@@ -14,6 +18,7 @@ interface Product {
   isBestSeller: boolean;
   customizable: boolean;
   occasion: string[];
+  likesCount?: number;
 }
 
 interface ProductCardProps {
@@ -25,6 +30,24 @@ const INSTAGRAM_URL = "https://www.instagram.com/elarose_atelier?igsh=dDVwNDl6dD
 
 export default function ProductCard({ product, onQuickView }: ProductCardProps) {
   const instagramUrl = INSTAGRAM_URL;
+  const productId = product.id || product._id || "";
+  const { isLiked, toggleLike } = useAuth();
+  const liked = isLiked(productId);
+
+  const [likesCount, setLikesCount] = useState(product.likesCount || 0);
+  const [animatingLike, setAnimatingLike] = useState(false);
+
+  const handleLikeClick = async (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setAnimatingLike(true);
+    const nowLiked = await toggleLike(productId);
+    if (nowLiked) {
+      setLikesCount((prev) => prev + 1);
+    } else if (liked) {
+      setLikesCount((prev) => Math.max(0, prev - 1));
+    }
+    setTimeout(() => setAnimatingLike(false), 300);
+  };
 
   return (
     <motion.article
@@ -45,10 +68,24 @@ export default function ProductCard({ product, onQuickView }: ProductCardProps) 
           loading="lazy"
         />
         {product.isBestSeller && (
-          <span className="absolute top-3 left-3 bg-maroon text-white text-[10px] font-medium tracking-wider uppercase px-2.5 py-1 rounded-full">
+          <span className="absolute top-3 left-3 bg-maroon text-white text-[10px] font-medium tracking-wider uppercase px-2.5 py-1 rounded-full shadow-sm">
             Best Seller
           </span>
         )}
+
+        {/* Heart Like Button */}
+        <button
+          onClick={handleLikeClick}
+          className={`absolute top-3 right-3 p-2 rounded-full transition-all duration-300 ${
+            liked
+              ? "bg-red-50 text-red-500 shadow-md"
+              : "bg-white/80 backdrop-blur-sm text-text-muted hover:text-red-500 hover:bg-white border border-blush-200"
+          } ${animatingLike ? "scale-125" : "scale-100"}`}
+          aria-label={liked ? "Unlike product" : "Like product"}
+        >
+          <Heart size={16} fill={liked ? "currentColor" : "none"} />
+        </button>
+
         <button
           onClick={() => onQuickView(product)}
           className="absolute bottom-3 right-3 bg-white/90 backdrop-blur-sm text-maroon text-xs font-medium px-3 py-1.5 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-maroon hover:text-white border border-blush-200"
@@ -59,9 +96,17 @@ export default function ProductCard({ product, onQuickView }: ProductCardProps) 
 
       {/* Content */}
       <div className="p-4 flex flex-col flex-1">
-        <p className="text-[10px] tracking-[0.2em] uppercase text-gold-500 mb-1" style={{fontFamily:"'Cormorant Garamond',serif"}}>
-          {product.category}
-        </p>
+        <div className="flex items-center justify-between mb-1">
+          <p className="text-[10px] tracking-[0.2em] uppercase text-gold-500" style={{fontFamily:"'Cormorant Garamond',serif"}}>
+            {product.category}
+          </p>
+          {likesCount > 0 && (
+            <span className="text-[11px] text-text-muted flex items-center gap-1">
+              <Heart size={12} className="text-red-400 fill-red-400" />
+              {likesCount}
+            </span>
+          )}
+        </div>
         <h3 className="text-text font-semibold text-base mb-1.5 leading-snug" style={{fontFamily:"'Playfair Display',serif"}}>
           {product.title}
         </h3>

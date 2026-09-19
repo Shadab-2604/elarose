@@ -1,13 +1,15 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useEffect, useMemo, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import ProductCard from "@/components/ProductCard";
 import ProductModal from "@/components/ProductModal";
 
 interface Product {
   id: string;
-  slug: string;
+  _id?: string;
+  slug?: string;
   title: string;
   category: string;
   categorySlug: string;
@@ -18,11 +20,12 @@ interface Product {
   isBestSeller: boolean;
   customizable: boolean;
   occasion: string[];
+  likesCount?: number;
 }
 
 const CATEGORIES = [
   { value: "all", label: "All" },
-  { value: "bouquets", label: "Pipe Cleaner Bouquets" },
+  { value: "pots", label: "Flower Pots" },
   { value: "keychains", label: "Personalized Keychains" },
   { value: "hampers", label: "Luxury Hampers" },
   { value: "custom", label: "Custom Gifts" },
@@ -36,20 +39,55 @@ const OCCASIONS = [
   { value: "Special Surprise", label: "Special Surprise" },
 ];
 
-export default function ProductsClient({ products }: { products: Product[] }) {
-  const [search, setSearch] = useState("");
+function ProductsClientContent({ initialProducts }: { initialProducts: Product[] }) {
+  const searchParams = useSearchParams();
+  const urlSearch = searchParams.get("search") || "";
+
+  const [products, setProducts] = useState<Product[]>(initialProducts || []);
+  const [search, setSearch] = useState(urlSearch);
   const [category, setCategory] = useState("all");
   const [occasion, setOccasion] = useState("all");
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+
+  useEffect(() => {
+    if (urlSearch) {
+      setSearch(urlSearch);
+    }
+  }, [urlSearch]);
+
+  useEffect(() => {
+    let isMounted = true;
+    async function loadBackendProducts() {
+      try {
+        const res = await fetch("/api/products", { cache: "no-store" });
+        if (res.ok) {
+          const data = await res.json();
+          if (isMounted && data.products && Array.isArray(data.products) && data.products.length > 0) {
+            setProducts(data.products);
+          }
+        }
+      } catch (err) {
+        console.warn("Could not fetch products from API, displaying initial items:", err);
+      }
+    }
+    loadBackendProducts();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const filtered = useMemo(() => {
     return products.filter((p) => {
       const matchSearch =
         !search ||
         p.title.toLowerCase().includes(search.toLowerCase()) ||
-        p.shortDescription.toLowerCase().includes(search.toLowerCase());
-      const matchCat = category === "all" || p.categorySlug === category;
-      const matchOcc = occasion === "all" || p.occasion.includes(occasion);
+        p.shortDescription.toLowerCase().includes(search.toLowerCase()) ||
+        p.category.toLowerCase().includes(search.toLowerCase());
+      const matchCat =
+        category === "all" ||
+        p.categorySlug === category ||
+        p.category.toLowerCase().includes(category);
+      const matchOcc = occasion === "all" || (p.occasion && p.occasion.includes(occasion));
       return matchSearch && matchCat && matchOcc;
     });
   }, [products, search, category, occasion]);
@@ -166,13 +204,16 @@ export default function ProductsClient({ products }: { products: Product[] }) {
               </motion.div>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
-                {filtered.map((product) => (
-                  <ProductCard
-                    key={product.id}
-                    product={product}
-                    onQuickView={(p) => setSelectedProduct(p as Product)}
-                  />
-                ))}
+                {filtered.map((product) => {
+                  const pId = product.id || product._id || "";
+                  return (
+                    <ProductCard
+                      key={pId}
+                      product={{ ...product, id: pId }}
+                      onQuickView={(p) => setSelectedProduct(p as Product)}
+                    />
+                  );
+                })}
               </div>
             )}
           </div>
@@ -184,5 +225,13 @@ export default function ProductsClient({ products }: { products: Product[] }) {
         onClose={() => setSelectedProduct(null)}
       />
     </>
+  );
+}
+
+export default function ProductsClient({ products }: { products: Product[] }) {
+  return (
+    <Suspense fallback={<div className="pt-32 text-center text-text-muted">Loading collection...</div>}>
+      <ProductsClientContent initialProducts={products} />
+    </Suspense>
   );
 }

@@ -1,13 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import ProductCard from "@/components/ProductCard";
 import ProductModal from "@/components/ProductModal";
 
 interface Product {
   id: string;
-  slug: string;
+  _id?: string;
+  slug?: string;
   title: string;
   category: string;
   categorySlug: string;
@@ -18,10 +19,11 @@ interface Product {
   isBestSeller: boolean;
   customizable: boolean;
   occasion: string[];
+  likesCount?: number;
 }
 
 export default function BestSellersSection({
-  products,
+  products: initialProducts,
   heading,
   subheading,
 }: {
@@ -29,7 +31,34 @@ export default function BestSellersSection({
   heading: string;
   subheading: string;
 }) {
+  const [products, setProducts] = useState<Product[]>(initialProducts || []);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+
+  useEffect(() => {
+    let isMounted = true;
+    async function loadBestSellers() {
+      try {
+        const res = await fetch("/api/products", { cache: "no-store" });
+        if (res.ok) {
+          const data = await res.json();
+          if (isMounted && data.products && Array.isArray(data.products) && data.products.length > 0) {
+            const best = data.products.filter((p: Product) => p.isBestSeller).slice(0, 4);
+            if (best.length > 0) {
+              setProducts(best);
+            } else {
+              setProducts(data.products.slice(0, 4));
+            }
+          }
+        }
+      } catch (err) {
+        console.warn("Could not fetch best sellers from API, displaying static fallbacks:", err);
+      }
+    }
+    loadBestSellers();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   return (
     <section className="py-16 md:py-24 bg-ivory">
@@ -53,13 +82,16 @@ export default function BestSellersSection({
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {products.map((product) => (
-            <ProductCard
-              key={product.id}
-              product={product}
-              onQuickView={(p) => setSelectedProduct(p as Product)}
-            />
-          ))}
+          {products.map((product) => {
+            const pId = product.id || product._id || "";
+            return (
+              <ProductCard
+                key={pId}
+                product={{ ...product, id: pId }}
+                onQuickView={(p) => setSelectedProduct(p as Product)}
+              />
+            );
+          })}
         </div>
       </div>
 

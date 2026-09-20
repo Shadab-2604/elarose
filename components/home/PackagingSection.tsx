@@ -8,15 +8,19 @@ interface PackagingImage {
   alt: string;
 }
 
+interface PackagingSectionProps {
+  heading: string;
+  subheading: string;
+  note?: string;
+  images: PackagingImage[];
+}
+
 export default function PackagingSection({
   heading,
   subheading,
+  note = "Ivory wrap · Blush ribbon · Gold seal · Hand-lettered card",
   images,
-}: {
-  heading: string;
-  subheading: string;
-  images: PackagingImage[];
-}) {
+}: PackagingSectionProps) {
   return (
     <section className="py-16 md:py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -58,7 +62,7 @@ export default function PackagingSection({
           className="text-center mt-8 italic text-text-muted text-sm"
           style={{fontFamily:"'Cormorant Garamond',serif"}}
         >
-          Ivory wrap · Blush ribbon · Gold seal · Hand-lettered card
+          {note}
         </motion.p>
       </div>
     </section>

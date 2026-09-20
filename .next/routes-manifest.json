@@ -113,6 +113,12 @@
       "namedRegex": "^/api/hero(?:/)?$"
     },
     {
+      "page": "/api/home-settings",
+      "regex": "^/api/home\\-settings(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/home\\-settings(?:/)?$"
+    },
+    {
       "page": "/api/products",
       "regex": "^/api/products(?:/)?$",
       "routeKeys": {},

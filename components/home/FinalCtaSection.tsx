@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
+import InstagramIcon from "@/components/icons/InstagramIcon";
 
 const INSTAGRAM_URL = "https://www.instagram.com/elarose_atelier?igsh=dDVwNDl6dDU3dWcx";
 
@@ -73,9 +74,9 @@ export default function FinalCtaSection({
           transition={{ duration: 0.4, delay: 0.3 }}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.97 }}
-          className="inline-flex items-center gap-2 bg-white text-maroon font-semibold text-sm sm:text-base px-8 py-4 rounded-full shadow-xl hover:shadow-2xl transition-shadow duration-300"
+          className="inline-flex items-center gap-2 bg-white text-maroon font-semibold text-sm sm:text-base px-8 py-4 rounded-full shadow-xl hover:shadow-2xl hover:bg-maroon hover:text-white border border-transparent hover:border-white transition-all duration-300 group"
         >
-          <Image src="/images/instagram.png" alt="Instagram" width={20} height={20} className="object-contain" />
+          <InstagramIcon size={20} className="text-maroon group-hover:text-white transition-colors duration-300 flex-shrink-0" />
           {button}
         </motion.a>
       </div>

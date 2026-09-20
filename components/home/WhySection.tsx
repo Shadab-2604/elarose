@@ -55,7 +55,7 @@ export default function WhySection({
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {trustPoints.map((point, i) => (
             <motion.div
-              key={point.title}
+              key={point.title ? `${point.title}-${i}` : i}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}

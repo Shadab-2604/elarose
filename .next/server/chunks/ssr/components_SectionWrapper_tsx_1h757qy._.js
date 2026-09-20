@@ -1,3 +1,0 @@
-module.exports=[71664,a=>{"use strict";var b=a.i(87924),c=a.i(46271);a.s(["default",0,function({children:a,className:d="",id:e}){return(0,b.jsx)(c.motion.section,{id:e,initial:{opacity:0,y:30},whileInView:{opacity:1,y:0},viewport:{once:!0,margin:"-80px"},transition:{duration:.6,ease:"easeOut"},className:`py-16 md:py-24 ${d}`,children:a})}])}];
-
-//# sourceMappingURL=components_SectionWrapper_tsx_1h757qy._.js.map

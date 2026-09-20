@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import InstagramIcon from "@/components/icons/InstagramIcon";
 
 interface HeroData {
   headline: string;
@@ -86,7 +87,7 @@ export default function HeroSection({ data }: { data: HeroData }) {
               rel="noopener noreferrer"
               className="btn-primary text-sm sm:text-base px-6 sm:px-8 py-3 sm:py-3.5"
             >
-              <Image src="/images/instagram.png" alt="Instagram" width={18} height={18} className="object-contain" />
+              <InstagramIcon size={18} className="text-white flex-shrink-0" />
               {data.ctaPrimary}
             </a>
             <Link

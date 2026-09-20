@@ -1646,14 +1646,11 @@ function InstagramSection({ data }) {
                         href: data.url,
                         target: "_blank",
                         rel: "noopener noreferrer",
-                        className: "inline-flex items-center gap-2 text-sm font-medium text-maroon border border-maroon/30 px-6 py-2.5 rounded-full hover:bg-maroon hover:text-white transition-all duration-300",
+                        className: "inline-flex items-center gap-2 text-sm font-medium text-maroon border border-maroon/30 px-6 py-2.5 rounded-full hover:bg-maroon hover:text-white transition-all duration-300 group",
                         children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
-                                src: "/images/instagram.png",
-                                alt: "Instagram",
-                                width: 16,
-                                height: 16,
-                                className: "object-contain"
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(InstagramIcon, {
+                                size: 18,
+                                className: "text-maroon group-hover:text-white transition-colors duration-300 flex-shrink-0"
                             }, void 0, false, {
                                 fileName: "[project]/components/home/InstagramSection.tsx",
                                 lineNumber: 70,

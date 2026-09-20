@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import InstagramIcon from "@/components/icons/InstagramIcon";
 
 const INSTAGRAM_URL =
   "https://www.instagram.com/elarose_atelier?igsh=dDVwNDl6dDU3dWcx";
@@ -50,16 +51,10 @@ export default function Footer() {
                 href={INSTAGRAM_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 flex items-center justify-center text-maroon hover:text-maroon transition-colors duration-300"
+                className="w-9 h-9 rounded-full bg-blush-100 flex items-center justify-center text-maroon hover:bg-maroon hover:text-white transition-colors duration-300 group"
                 aria-label="Instagram"
               >
-                <Image
-                  src="/images/instagram.png"
-                  alt="Instagram"
-                  width={16}
-                  height={16}
-                  className="object-contain"
-                />
+                <InstagramIcon size={16} className="text-maroon group-hover:text-white transition-colors duration-300" />
               </a>
 
               {/* Email */}

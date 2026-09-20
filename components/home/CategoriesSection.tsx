@@ -13,22 +13,32 @@ interface Category {
   href: string;
 }
 
-export default function CategoriesSection({ categories }: { categories: Category[] }) {
+interface CategoriesSectionProps {
+  categories: Category[];
+  heading?: string;
+  subheading?: string;
+}
+
+export default function CategoriesSection({
+  categories,
+  heading = "Featured Categories",
+  subheading = "Curated collections ready and available to order.",
+}: CategoriesSectionProps) {
   return (
     <section className="py-16 md:py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <p className="section-eyebrow">The Collection</p>
-          <h2 className="section-heading">Featured Categories</h2>
+          <h2 className="section-heading">{heading}</h2>
           <p className="section-subheading mt-3 max-w-xl mx-auto">
-            Curated collections ready and available to order.
+            {subheading}
           </p>
         </div>
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
           {categories.map((cat, i) => (
             <motion.div
-              key={cat.id}
+              key={cat.id ? `${cat.id}-${i}` : i}
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}

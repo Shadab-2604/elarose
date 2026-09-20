@@ -12,22 +12,32 @@ interface Occasion {
   href: string;
 }
 
-export default function OccasionsSection({ occasions }: { occasions: Occasion[] }) {
+interface OccasionsSectionProps {
+  occasions: Occasion[];
+  heading?: string;
+  subheading?: string;
+}
+
+export default function OccasionsSection({
+  occasions,
+  heading = "Gifts For Every Occasion",
+  subheading = "Whatever the moment, we have a gift wrapped for it.",
+}: OccasionsSectionProps) {
   return (
     <section className="py-16 md:py-24 bg-ivory">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <p className="section-eyebrow">Shop By Moment</p>
-          <h2 className="section-heading">Gifts For Every Occasion</h2>
+          <h2 className="section-heading">{heading}</h2>
           <p className="section-subheading mt-3 max-w-lg mx-auto">
-            Whatever the moment, we have a gift wrapped for it.
+            {subheading}
           </p>
         </div>
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
           {occasions.map((occasion, i) => (
             <motion.div
-              key={occasion.id}
+              key={occasion.id ? `${occasion.id}-${i}` : i}
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}

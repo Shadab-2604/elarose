@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import InstagramIcon from "@/components/icons/InstagramIcon";
 import contactData from "@/json/contact.json";
 
 const INSTAGRAM_URL = "https://www.instagram.com/elarose_atelier?igsh=dDVwNDl6dDU3dWcx";
@@ -22,7 +23,7 @@ export default function ContactPage() {
   const contactItems = [
     {
       icon: (
-        <Image src="/images/instagram.png" alt="Instagram" width={20} height={20} className="object-contain" />
+        <InstagramIcon size={20} className="text-maroon group-hover:text-white transition-colors duration-300" />
       ),
       label: "INSTAGRAM",
       value: contactData.instagram,

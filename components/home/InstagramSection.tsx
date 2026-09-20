@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
+import InstagramIcon from "@/components/icons/InstagramIcon";
 
 interface InstagramPost {
   id: string;
@@ -30,7 +31,7 @@ export default function InstagramSection({ data }: { data: InstagramData }) {
         <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-2 sm:gap-3 max-w-3xl mx-auto">
           {data.posts.slice(0, 9).map((post, i) => (
             <motion.a
-              key={post.id}
+              key={post.id ? `${post.id}-${i}` : i}
               href={data.url}
               target="_blank"
               rel="noopener noreferrer"
@@ -65,9 +66,9 @@ export default function InstagramSection({ data }: { data: InstagramData }) {
             href={data.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-sm font-medium text-maroon border border-maroon/30 px-6 py-2.5 rounded-full hover:bg-maroon hover:text-white transition-all duration-300"
+            className="inline-flex items-center gap-2 text-sm font-medium text-maroon border border-maroon/30 px-6 py-2.5 rounded-full hover:bg-maroon hover:text-white transition-all duration-300 group"
           >
-            <Image src="/images/instagram.png" alt="Instagram" width={16} height={16} className="object-contain" />
+            <InstagramIcon size={18} className="text-maroon group-hover:text-white transition-colors duration-300 flex-shrink-0" />
             Follow {data.handle}
           </a>
         </div>

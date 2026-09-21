@@ -25,7 +25,6 @@ interface Product {
 }
 
 const DEFAULT_CATEGORIES = [
-  { value: "all", label: "All" },
   { value: "pots", label: "Flower Pots" },
   { value: "keychains", label: "Personalized Keychains" },
   { value: "hampers", label: "Luxury Hampers" },
@@ -33,7 +32,6 @@ const DEFAULT_CATEGORIES = [
 ];
 
 const DEFAULT_OCCASIONS = [
-  { value: "all", label: "All" },
   { value: "Birthday", label: "Birthday" },
   { value: "Anniversary", label: "Anniversary" },
   { value: "Wedding", label: "Wedding" },
@@ -86,26 +84,23 @@ function ProductsClientContent({ initialProducts }: { initialProducts: Product[]
     };
   }, []);
 
-  // Compute dynamic category list from products + default list
+  // Compute dynamic category list with guaranteed unique keys and slug mapping
   const categoriesList = useMemo(() => {
     const map = new Map<string, { value: string; label: string }>();
     map.set("all", { value: "all", label: "All" });
 
-    // Seed defaults first
+    // Seed defaults
     DEFAULT_CATEGORIES.forEach((c) => {
-      if (c.value !== "all") {
-        map.set(c.label.toLowerCase(), c);
-      }
+      map.set(c.value.toLowerCase(), c);
     });
 
-    // Dynamically extract categories from all active products (including admin additions)
+    // Dynamically extract unique categories from products
     products.forEach((p) => {
       if (p.category && p.category.trim()) {
         const label = p.category.trim();
-        const key = label.toLowerCase();
-        const value = p.categorySlug || key.replace(/\s+/g, "-");
-        if (!map.has(key)) {
-          map.set(key, { value, label });
+        const value = (p.categorySlug || label).toLowerCase().replace(/\s+/g, "-");
+        if (!map.has(value)) {
+          map.set(value, { value, label });
         }
       }
     });
@@ -113,27 +108,30 @@ function ProductsClientContent({ initialProducts }: { initialProducts: Product[]
     return Array.from(map.values());
   }, [products]);
 
-  // Compute dynamic occasion list from products + default list
+  // Compute dynamic occasion list with guaranteed unique keys
   const occasionsList = useMemo(() => {
-    const set = new Set<string>();
+    const map = new Map<string, { value: string; label: string }>();
+    map.set("all", { value: "all", label: "All" });
 
     DEFAULT_OCCASIONS.forEach((o) => {
-      if (o.value !== "all") set.add(o.label);
+      map.set(o.value.toLowerCase(), o);
     });
 
     products.forEach((p) => {
       if (Array.isArray(p.occasion)) {
         p.occasion.forEach((occ) => {
-          if (occ && occ.trim()) set.add(occ.trim());
+          if (occ && occ.trim()) {
+            const label = occ.trim();
+            const value = label.toLowerCase();
+            if (!map.has(value)) {
+              map.set(value, { value: label, label });
+            }
+          }
         });
       }
     });
 
-    const list = [{ value: "all", label: "All" }];
-    set.forEach((occLabel) => {
-      list.push({ value: occLabel, label: occLabel });
-    });
-    return list;
+    return Array.from(map.values());
   }, [products]);
 
   const visibleCategories = useMemo(() => {
@@ -227,7 +225,7 @@ function ProductsClientContent({ initialProducts }: { initialProducts: Product[]
                 />
               </div>
 
-              {/* Category Filter Section with Dynamic Load & Arrow Toggle */}
+              {/* Category Filter Section */}
               <div className="mb-5">
                 <div className="flex items-center justify-between mb-3">
                   <p className="text-[10px] tracking-[0.2em] uppercase text-text-light font-semibold">Category</p>
@@ -236,7 +234,7 @@ function ProductsClientContent({ initialProducts }: { initialProducts: Product[]
                   )}
                 </div>
                 <div className="flex flex-wrap gap-2">
-                  {visibleCategories.map((c) => {
+                  {visibleCategories.map((c, idx) => {
                     const isActive =
                       category === c.value ||
                       category.toLowerCase() === c.label.toLowerCase() ||
@@ -245,7 +243,7 @@ function ProductsClientContent({ initialProducts }: { initialProducts: Product[]
                         category.toLowerCase().includes(c.value.toLowerCase()));
                     return (
                       <button
-                        key={c.value}
+                        key={`cat-${c.value}-${idx}`}
                         onClick={() => setCategory(c.value)}
                         className={`text-xs px-3 py-1.5 rounded-full border transition-all duration-200 ${
                           isActive
@@ -277,7 +275,7 @@ function ProductsClientContent({ initialProducts }: { initialProducts: Product[]
                 )}
               </div>
 
-              {/* Occasion Filter Section with Dynamic Load & Arrow Toggle */}
+              {/* Occasion Filter Section */}
               <div className="mb-5">
                 <div className="flex items-center justify-between mb-3">
                   <p className="text-[10px] tracking-[0.2em] uppercase text-text-light font-semibold">Occasion</p>
@@ -286,13 +284,13 @@ function ProductsClientContent({ initialProducts }: { initialProducts: Product[]
                   )}
                 </div>
                 <div className="flex flex-wrap gap-2">
-                  {visibleOccasions.map((o) => {
+                  {visibleOccasions.map((o, idx) => {
                     const isActive =
-                      occasion === o.value ||
+                      occasion.toLowerCase() === o.value.toLowerCase() ||
                       occasion.toLowerCase() === o.label.toLowerCase();
                     return (
                       <button
-                        key={o.value}
+                        key={`occ-${o.value}-${idx}`}
                         onClick={() => setOccasion(o.value)}
                         className={`text-xs px-3 py-1.5 rounded-full border transition-all duration-200 ${
                           isActive

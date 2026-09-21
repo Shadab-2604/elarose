@@ -32,6 +32,7 @@ import {
 } from "lucide-react";
 import InstagramIcon from "@/components/icons/InstagramIcon";
 import SectionWrapper from "@/components/SectionWrapper";
+import { useTheme } from "@/components/ThemeProvider";
 
 interface Product {
   id: string;
@@ -68,6 +69,7 @@ interface FeaturedCat {
 
 export default function AdminPage() {
   const { user, loading, openAuthModal } = useAuth();
+  const { theme: currentTheme, setTheme } = useTheme();
 
   // Active Main Tab: "products" | "homepage"
   const [activeAdminTab, setActiveAdminTab] = useState<"products" | "homepage">("products");
@@ -144,6 +146,9 @@ export default function AdminPage() {
         const data = await res.json();
         if (data.settings) {
           setHomeSettings(data.settings);
+          if (data.settings.theme) {
+            setTheme(data.settings.theme);
+          }
         }
       }
     } catch (err) {
@@ -151,7 +156,23 @@ export default function AdminPage() {
     } finally {
       setFetchingHomeSettings(false);
     }
-  }, []);
+  }, [setTheme]);
+
+  const handleSelectTheme = async (themeKey: string) => {
+    setTheme(themeKey);
+    const updated = { ...homeSettings, theme: themeKey };
+    setHomeSettings(updated);
+
+    try {
+      await fetch("/api/home-settings", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updated),
+      });
+    } catch (err) {
+      console.error("Failed to save theme:", err);
+    }
+  };
 
   const fetchProductsAndCategories = useCallback(async () => {
     setFetching(true);
@@ -562,6 +583,105 @@ export default function AdminPage() {
                 <RefreshCw size={14} className={fetchingHomeSettings ? "animate-spin" : ""} />
                 <span>Reload Settings</span>
               </button>
+            </div>
+
+            {/* Website Theme & Color Palette Selector */}
+            <div className="bg-white p-6 rounded-2xl border border-blush-200 shadow-sm space-y-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <div>
+                  <div className="flex items-center gap-2 text-maroon font-semibold text-xs uppercase tracking-wider mb-0.5">
+                    <Sparkles size={16} />
+                    <span>Website Theme & Color Palette</span>
+                  </div>
+                  <h3 className="text-lg font-semibold text-text font-playfair">Selectable Girlish & Luxury Aesthetics</h3>
+                  <p className="text-xs text-text-muted">
+                    Choose a professional color theme tailored for ELAROSE. Instant 1-click live preview across the entire website!
+                  </p>
+                </div>
+                <span className="text-xs font-semibold bg-blush-100 text-maroon px-3 py-1 rounded-full border border-maroon/20 self-start sm:self-auto capitalize">
+                  Active: {(currentTheme || "rose-atelier").replace("-", " ")}
+                </span>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 pt-2">
+                {[
+                  {
+                    key: "rose-atelier",
+                    name: "Rose Atelier",
+                    desc: "Classic Deep Maroon & Blush",
+                    primary: "#5c0a29",
+                    blush: "#EBC7D2",
+                    ivory: "#FFF8F8",
+                    gold: "#C8A96B",
+                  },
+                  {
+                    key: "dusty-rose",
+                    name: "Dusty Rose & Mauve",
+                    desc: "Soft Mauve & Vintage Rose",
+                    primary: "#7e4a5b",
+                    blush: "#e6c2cf",
+                    ivory: "#FAF5F7",
+                    gold: "#b88e6e",
+                  },
+                  {
+                    key: "pastel-lavender",
+                    name: "Pastel Lavender",
+                    desc: "Serene Lilac & Soft Plum",
+                    primary: "#5e436c",
+                    blush: "#d8c8e6",
+                    ivory: "#F8F5FA",
+                    gold: "#bfa265",
+                  },
+                  {
+                    key: "peach-blossom",
+                    name: "Peach Blossom",
+                    desc: "Terracotta Rose & Soft Peach",
+                    primary: "#84433b",
+                    blush: "#f4caa5",
+                    ivory: "#FAF4F0",
+                    gold: "#c49058",
+                  },
+                  {
+                    key: "champagne-silk",
+                    name: "Champagne Silk",
+                    desc: "Silk Cocoa & Cashmere Cream",
+                    primary: "#6d4534",
+                    blush: "#e8cca8",
+                    ivory: "#FAF7F2",
+                    gold: "#bc9552",
+                  },
+                ].map((t) => {
+                  const isActive = (currentTheme || "rose-atelier") === t.key;
+                  return (
+                    <button
+                      key={t.key}
+                      type="button"
+                      onClick={() => handleSelectTheme(t.key)}
+                      className={`p-4 rounded-xl border text-left transition-all relative flex flex-col justify-between ${
+                        isActive
+                          ? "border-maroon bg-blush-50/80 shadow-md ring-2 ring-maroon/30"
+                          : "border-blush-200 bg-white hover:border-maroon/40 hover:bg-blush-50/30"
+                      }`}
+                    >
+                      <div>
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="font-semibold text-xs text-text">{t.name}</span>
+                          {isActive && <Check size={14} className="text-maroon font-bold" />}
+                        </div>
+                        <p className="text-[10px] text-text-muted mb-3 leading-tight">{t.desc}</p>
+                      </div>
+
+                      {/* Color Palette Swatches */}
+                      <div className="flex items-center gap-1.5 pt-1">
+                        <div className="w-5 h-5 rounded-full border border-black/10 shadow-inner" style={{ backgroundColor: t.primary }} title="Primary" />
+                        <div className="w-5 h-5 rounded-full border border-black/10 shadow-inner" style={{ backgroundColor: t.blush }} title="Blush Accent" />
+                        <div className="w-5 h-5 rounded-full border border-black/10 shadow-inner" style={{ backgroundColor: t.ivory }} title="Ivory Background" />
+                        <div className="w-5 h-5 rounded-full border border-black/10 shadow-inner" style={{ backgroundColor: t.gold }} title="Luxury Gold" />
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
 
             {/* Grid of All 9 Home Page Sections */}
@@ -1155,9 +1275,22 @@ export default function AdminPage() {
                     onChange={(e) => setCategorySelect(e.target.value)}
                     className="w-full px-4 py-2.5 bg-blush-50/50 border border-blush-200 rounded-xl focus:outline-none focus:border-maroon text-text"
                   >
-                    <option value="Flower Pots">Flower Pots</option>
-                    <option value="Keychains">Keychains</option>
-                    <option value="Custom Arrangements">Custom Arrangements</option>
+                    {Array.from(
+                      new Set([
+                        "Flower Pots",
+                        "Keychains",
+                        "Luxury Hampers",
+                        "Custom Gifts",
+                        "Flower Bouquets",
+                        "Home Decor",
+                        "Crochet Art",
+                        ...categoriesList.map((c) => c.name),
+                      ])
+                    ).map((catName) => (
+                      <option key={catName} value={catName}>
+                        {catName}
+                      </option>
+                    ))}
                     <option value="OTHER">+ Add Custom Category</option>
                   </select>
                 </div>

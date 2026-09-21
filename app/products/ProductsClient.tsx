@@ -3,6 +3,7 @@
 import { useState, useEffect, useMemo, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
+import { ChevronDown, ChevronUp } from "lucide-react";
 import ProductCard from "@/components/ProductCard";
 import ProductModal from "@/components/ProductModal";
 
@@ -23,7 +24,7 @@ interface Product {
   likesCount?: number;
 }
 
-const CATEGORIES = [
+const DEFAULT_CATEGORIES = [
   { value: "all", label: "All" },
   { value: "pots", label: "Flower Pots" },
   { value: "keychains", label: "Personalized Keychains" },
@@ -31,7 +32,7 @@ const CATEGORIES = [
   { value: "custom", label: "Custom Gifts" },
 ];
 
-const OCCASIONS = [
+const DEFAULT_OCCASIONS = [
   { value: "all", label: "All" },
   { value: "Birthday", label: "Birthday" },
   { value: "Anniversary", label: "Anniversary" },
@@ -42,18 +43,27 @@ const OCCASIONS = [
 function ProductsClientContent({ initialProducts }: { initialProducts: Product[] }) {
   const searchParams = useSearchParams();
   const urlSearch = searchParams.get("search") || "";
+  const urlCategory = searchParams.get("category") || "";
+  const urlOccasion = searchParams.get("occasion") || "";
 
   const [products, setProducts] = useState<Product[]>(initialProducts || []);
   const [search, setSearch] = useState(urlSearch);
-  const [category, setCategory] = useState("all");
-  const [occasion, setOccasion] = useState("all");
+  const [category, setCategory] = useState(urlCategory || "all");
+  const [occasion, setOccasion] = useState(urlOccasion || "all");
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
+  // Controls for expanding/collapsing categories & occasions when there are many
+  const [categoriesExpanded, setCategoriesExpanded] = useState(false);
+  const [occasionsExpanded, setOccasionsExpanded] = useState(false);
+
+  const INITIAL_CATEGORY_LIMIT = 4; // Show All + 4 categories initially
+  const INITIAL_OCCASION_LIMIT = 4; // Show All + 4 occasions initially
+
   useEffect(() => {
-    if (urlSearch) {
-      setSearch(urlSearch);
-    }
-  }, [urlSearch]);
+    if (urlSearch) setSearch(urlSearch);
+    if (urlCategory) setCategory(urlCategory);
+    if (urlOccasion) setOccasion(urlOccasion);
+  }, [urlSearch, urlCategory, urlOccasion]);
 
   useEffect(() => {
     let isMounted = true;
@@ -76,6 +86,73 @@ function ProductsClientContent({ initialProducts }: { initialProducts: Product[]
     };
   }, []);
 
+  // Compute dynamic category list from products + default list
+  const categoriesList = useMemo(() => {
+    const map = new Map<string, { value: string; label: string }>();
+    map.set("all", { value: "all", label: "All" });
+
+    // Seed defaults first
+    DEFAULT_CATEGORIES.forEach((c) => {
+      if (c.value !== "all") {
+        map.set(c.label.toLowerCase(), c);
+      }
+    });
+
+    // Dynamically extract categories from all active products (including admin additions)
+    products.forEach((p) => {
+      if (p.category && p.category.trim()) {
+        const label = p.category.trim();
+        const key = label.toLowerCase();
+        const value = p.categorySlug || key.replace(/\s+/g, "-");
+        if (!map.has(key)) {
+          map.set(key, { value, label });
+        }
+      }
+    });
+
+    return Array.from(map.values());
+  }, [products]);
+
+  // Compute dynamic occasion list from products + default list
+  const occasionsList = useMemo(() => {
+    const set = new Set<string>();
+
+    DEFAULT_OCCASIONS.forEach((o) => {
+      if (o.value !== "all") set.add(o.label);
+    });
+
+    products.forEach((p) => {
+      if (Array.isArray(p.occasion)) {
+        p.occasion.forEach((occ) => {
+          if (occ && occ.trim()) set.add(occ.trim());
+        });
+      }
+    });
+
+    const list = [{ value: "all", label: "All" }];
+    set.forEach((occLabel) => {
+      list.push({ value: occLabel, label: occLabel });
+    });
+    return list;
+  }, [products]);
+
+  const visibleCategories = useMemo(() => {
+    if (categoriesExpanded || categoriesList.length <= INITIAL_CATEGORY_LIMIT + 1) {
+      return categoriesList;
+    }
+    return categoriesList.slice(0, INITIAL_CATEGORY_LIMIT + 1);
+  }, [categoriesList, categoriesExpanded]);
+
+  const visibleOccasions = useMemo(() => {
+    if (occasionsExpanded || occasionsList.length <= INITIAL_OCCASION_LIMIT + 1) {
+      return occasionsList;
+    }
+    return occasionsList.slice(0, INITIAL_OCCASION_LIMIT + 1);
+  }, [occasionsList, occasionsExpanded]);
+
+  const remainingCategories = categoriesList.length - (INITIAL_CATEGORY_LIMIT + 1);
+  const remainingOccasions = occasionsList.length - (INITIAL_OCCASION_LIMIT + 1);
+
   const filtered = useMemo(() => {
     return products.filter((p) => {
       const matchSearch =
@@ -83,11 +160,24 @@ function ProductsClientContent({ initialProducts }: { initialProducts: Product[]
         p.title.toLowerCase().includes(search.toLowerCase()) ||
         p.shortDescription.toLowerCase().includes(search.toLowerCase()) ||
         p.category.toLowerCase().includes(search.toLowerCase());
+
+      const targetCat = category.toLowerCase();
+      const pCatSlug = (p.categorySlug || "").toLowerCase();
+      const pCatName = (p.category || "").toLowerCase();
+
       const matchCat =
         category === "all" ||
-        p.categorySlug === category ||
-        p.category.toLowerCase().includes(category);
-      const matchOcc = occasion === "all" || (p.occasion && p.occasion.includes(occasion));
+        pCatSlug === targetCat ||
+        pCatName === targetCat ||
+        pCatName.includes(targetCat) ||
+        targetCat.includes(pCatName);
+
+      const targetOcc = occasion.toLowerCase();
+      const matchOcc =
+        occasion === "all" ||
+        (Array.isArray(p.occasion) &&
+          p.occasion.some((o) => o.toLowerCase() === targetOcc));
+
       return matchSearch && matchCat && matchOcc;
     });
   }, [products, search, category, occasion]);
@@ -113,14 +203,20 @@ function ProductsClientContent({ initialProducts }: { initialProducts: Product[]
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Sidebar Filters */}
           <aside className="w-full lg:w-64 flex-shrink-0">
-            <div className="bg-white rounded-xl border border-blush-200 p-5 sticky top-20">
+            <div className="bg-white rounded-xl border border-blush-200 p-5 sticky top-20 shadow-sm">
               {/* Search */}
               <div className="relative mb-5">
                 <svg
                   className="absolute left-3 top-1/2 -translate-y-1/2 text-text-light w-4 h-4"
-                  fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  viewBox="0 0 24 24"
                 >
-                  <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                  <circle cx="11" cy="11" r="8" />
+                  <line x1="21" y1="21" x2="16.65" y2="16.65" />
                 </svg>
                 <input
                   type="text"
@@ -131,50 +227,107 @@ function ProductsClientContent({ initialProducts }: { initialProducts: Product[]
                 />
               </div>
 
-              {/* Category */}
+              {/* Category Filter Section with Dynamic Load & Arrow Toggle */}
               <div className="mb-5">
-                <p className="text-[10px] tracking-[0.2em] uppercase text-text-light mb-3">Category</p>
-                <div className="flex flex-wrap gap-2">
-                  {CATEGORIES.map((c) => (
-                    <button
-                      key={c.value}
-                      onClick={() => setCategory(c.value)}
-                      className={`text-xs px-3 py-1.5 rounded-full border transition-all duration-200 ${
-                        category === c.value
-                          ? "bg-maroon text-white border-maroon"
-                          : "bg-ivory text-text-muted border-blush-200 hover:border-maroon/50"
-                      }`}
-                    >
-                      {c.label}
-                    </button>
-                  ))}
+                <div className="flex items-center justify-between mb-3">
+                  <p className="text-[10px] tracking-[0.2em] uppercase text-text-light font-semibold">Category</p>
+                  {categoriesList.length > 1 && (
+                    <span className="text-[10px] text-text-muted">{categoriesList.length - 1} categories</span>
+                  )}
                 </div>
+                <div className="flex flex-wrap gap-2">
+                  {visibleCategories.map((c) => {
+                    const isActive =
+                      category === c.value ||
+                      category.toLowerCase() === c.label.toLowerCase() ||
+                      (category !== "all" &&
+                        c.value !== "all" &&
+                        category.toLowerCase().includes(c.value.toLowerCase()));
+                    return (
+                      <button
+                        key={c.value}
+                        onClick={() => setCategory(c.value)}
+                        className={`text-xs px-3 py-1.5 rounded-full border transition-all duration-200 ${
+                          isActive
+                            ? "bg-maroon text-white border-maroon shadow-sm"
+                            : "bg-ivory text-text-muted border-blush-200 hover:border-maroon/50 hover:text-maroon"
+                        }`}
+                      >
+                        {c.label}
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {/* Arrow toggle to load more categories */}
+                {remainingCategories > 0 && (
+                  <button
+                    onClick={() => setCategoriesExpanded(!categoriesExpanded)}
+                    className="mt-3 w-full flex items-center justify-center gap-1.5 text-xs font-semibold text-maroon hover:text-maroon-950 transition-colors py-1.5 px-3 rounded-xl bg-blush-50 hover:bg-blush-100 border border-blush-200"
+                  >
+                    <span>
+                      {categoriesExpanded ? "Show Less" : `+ ${remainingCategories} More Categories`}
+                    </span>
+                    {categoriesExpanded ? (
+                      <ChevronUp className="w-3.5 h-3.5 text-maroon" />
+                    ) : (
+                      <ChevronDown className="w-3.5 h-3.5 text-maroon" />
+                    )}
+                  </button>
+                )}
               </div>
 
-              {/* Occasion */}
+              {/* Occasion Filter Section with Dynamic Load & Arrow Toggle */}
               <div className="mb-5">
-                <p className="text-[10px] tracking-[0.2em] uppercase text-text-light mb-3">Occasion</p>
-                <div className="flex flex-wrap gap-2">
-                  {OCCASIONS.map((o) => (
-                    <button
-                      key={o.value}
-                      onClick={() => setOccasion(o.value)}
-                      className={`text-xs px-3 py-1.5 rounded-full border transition-all duration-200 ${
-                        occasion === o.value
-                          ? "bg-maroon text-white border-maroon"
-                          : "bg-ivory text-text-muted border-blush-200 hover:border-maroon/50"
-                      }`}
-                    >
-                      {o.label}
-                    </button>
-                  ))}
+                <div className="flex items-center justify-between mb-3">
+                  <p className="text-[10px] tracking-[0.2em] uppercase text-text-light font-semibold">Occasion</p>
+                  {occasionsList.length > 1 && (
+                    <span className="text-[10px] text-text-muted">{occasionsList.length - 1} occasions</span>
+                  )}
                 </div>
+                <div className="flex flex-wrap gap-2">
+                  {visibleOccasions.map((o) => {
+                    const isActive =
+                      occasion === o.value ||
+                      occasion.toLowerCase() === o.label.toLowerCase();
+                    return (
+                      <button
+                        key={o.value}
+                        onClick={() => setOccasion(o.value)}
+                        className={`text-xs px-3 py-1.5 rounded-full border transition-all duration-200 ${
+                          isActive
+                            ? "bg-maroon text-white border-maroon shadow-sm"
+                            : "bg-ivory text-text-muted border-blush-200 hover:border-maroon/50 hover:text-maroon"
+                        }`}
+                      >
+                        {o.label}
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {/* Arrow toggle to load more occasions */}
+                {remainingOccasions > 0 && (
+                  <button
+                    onClick={() => setOccasionsExpanded(!occasionsExpanded)}
+                    className="mt-3 w-full flex items-center justify-center gap-1.5 text-xs font-semibold text-maroon hover:text-maroon-950 transition-colors py-1.5 px-3 rounded-xl bg-blush-50 hover:bg-blush-100 border border-blush-200"
+                  >
+                    <span>
+                      {occasionsExpanded ? "Show Less" : `+ ${remainingOccasions} More Occasions`}
+                    </span>
+                    {occasionsExpanded ? (
+                      <ChevronUp className="w-3.5 h-3.5 text-maroon" />
+                    ) : (
+                      <ChevronDown className="w-3.5 h-3.5 text-maroon" />
+                    )}
+                  </button>
+                )}
               </div>
 
               {(search || category !== "all" || occasion !== "all") && (
                 <button
                   onClick={resetFilters}
-                  className="text-xs text-maroon hover:underline"
+                  className="text-xs text-maroon font-medium hover:underline block pt-2"
                 >
                   Reset filters
                 </button>
@@ -194,11 +347,11 @@ function ProductsClientContent({ initialProducts }: { initialProducts: Product[]
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="text-center py-20"
+                className="text-center py-20 bg-white rounded-2xl border border-blush-200"
               >
-                <p className="text-text-muted text-lg mb-2" style={{fontFamily:"'Playfair Display',serif"}}>No gifts found</p>
+                <p className="text-text-muted text-lg mb-2 font-playfair">No gifts found</p>
                 <p className="text-text-light text-sm mb-4">Try a different search or filter.</p>
-                <button onClick={resetFilters} className="text-sm text-maroon underline">
+                <button onClick={resetFilters} className="text-sm text-maroon underline font-medium">
                   Clear all filters
                 </button>
               </motion.div>

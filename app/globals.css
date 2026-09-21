@@ -4,10 +4,98 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+:root,
+[data-theme="rose-atelier"] {
   --font-playfair: 'Playfair Display', serif;
   --font-poppins: 'Poppins', sans-serif;
   --font-cormorant: 'Cormorant Garamond', serif;
+
+  --color-maroon: #5c0a29;
+  --color-maroon-dark: #38061a;
+  --color-maroon-50: #fdf2f6;
+  --color-maroon-100: #fce7ef;
+  --color-maroon-200: #f9d0e1;
+  --color-blush: #EBC7D2;
+  --color-blush-light: #fdf5f7;
+  --color-blush-100: #fceef3;
+  --color-blush-200: #f8dde8;
+  --color-ivory: #FFF8F8;
+  --color-gold: #C8A96B;
+  --color-text: #5c0a29;
+  --color-text-muted: #7a5c64;
+  --color-text-light: #a68990;
+}
+
+/* Theme 2: Dusty Rose & Soft Mauve (Soothing, feminine, gentle) */
+[data-theme="dusty-rose"] {
+  --color-maroon: #7e4a5b;
+  --color-maroon-dark: #562e3d;
+  --color-maroon-50: #faedf2;
+  --color-maroon-100: #f5e2ea;
+  --color-maroon-200: #ebc7d6;
+  --color-blush: #e6c2cf;
+  --color-blush-light: #fbf3f6;
+  --color-blush-100: #f7eaef;
+  --color-blush-200: #efd3de;
+  --color-ivory: #FAF5F7;
+  --color-gold: #b88e6e;
+  --color-text: #4a2c37;
+  --color-text-muted: #7d5c69;
+  --color-text-light: #a38491;
+}
+
+/* Theme 3: Pastel Lavender & Lilac (Aesthetic, delicate, serene) */
+[data-theme="pastel-lavender"] {
+  --color-maroon: #5e436c;
+  --color-maroon-dark: #3d2849;
+  --color-maroon-50: #f6f0fa;
+  --color-maroon-100: #ede3f5;
+  --color-maroon-200: #dbc7eb;
+  --color-blush: #d8c8e6;
+  --color-blush-light: #f9f5fc;
+  --color-blush-100: #f4eef9;
+  --color-blush-200: #e9def2;
+  --color-ivory: #F8F5FA;
+  --color-gold: #bfa265;
+  --color-text: #3f2b4c;
+  --color-text-muted: #6c567b;
+  --color-text-light: #9681a5;
+}
+
+/* Theme 4: Peach Blossom & Warm Rose (Charming, soft, romantic) */
+[data-theme="peach-blossom"] {
+  --color-maroon: #84433b;
+  --color-maroon-dark: #592a24;
+  --color-maroon-50: #fcf0eb;
+  --color-maroon-100: #f9e2d9;
+  --color-maroon-200: #f2c5b5;
+  --color-blush: #f4caa5;
+  --color-blush-light: #fdf5f0;
+  --color-blush-100: #fdeee8;
+  --color-blush-200: #f9ded5;
+  --color-ivory: #FAF4F0;
+  --color-gold: #c49058;
+  --color-text: #522722;
+  --color-text-muted: #7e5751;
+  --color-text-light: #a7807a;
+}
+
+/* Theme 5: Champagne Silk & Cashmere (Ultra-luxury, soft warm glow) */
+[data-theme="champagne-silk"] {
+  --color-maroon: #6d4534;
+  --color-maroon-dark: #472b1e;
+  --color-maroon-50: #f9f2ec;
+  --color-maroon-100: #f4e5d8;
+  --color-maroon-200: #e6cbb7;
+  --color-blush: #e8cca8;
+  --color-blush-light: #fcf7f2;
+  --color-blush-100: #f8efe6;
+  --color-blush-200: #f1e1d2;
+  --color-ivory: #FAF7F2;
+  --color-gold: #bc9552;
+  --color-text: #472a1e;
+  --color-text-muted: #735649;
+  --color-text-light: #9c7e71;
 }
 
 * {
@@ -19,8 +107,8 @@ html {
 }
 
 body {
-  background-color: #FFF8F8;
-  color: #5c0a29;
+  background-color: var(--color-ivory);
+  color: var(--color-text);
   font-family: 'Poppins', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -55,12 +143,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 ::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: #FFF8F8; }
-::-webkit-scrollbar-thumb { background: #EBC7D2; border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: #5c0a29; }
+::-webkit-scrollbar-track { background: var(--color-ivory); }
+::-webkit-scrollbar-thumb { background: var(--color-blush); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-maroon); }
 
 :focus-visible {
-  outline: 2px solid #5c0a29;
+  outline: 2px solid var(--color-maroon);
   outline-offset: 2px;
   border-radius: 2px;
 }

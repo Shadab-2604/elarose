@@ -69,6 +69,7 @@ export interface IHomePageSettings extends Document {
   finalCtaSubheading: string;
   finalCtaButton: string;
   finalCtaImage: string;
+  theme: string;
   updatedAt: Date;
 }
 
@@ -142,6 +143,7 @@ const HomePageSettingsSchema = new Schema<IHomePageSettings>(
     finalCtaSubheading: { type: String, default: "Your perfect gift is just one message away." },
     finalCtaButton: { type: String, default: "Order on Instagram" },
     finalCtaImage: { type: String, default: "https://images.pexels.com/photos/931177/pexels-photo-931177.jpeg?auto=compress&cs=tinysrgb&w=1600" },
+    theme: { type: String, default: "rose-atelier" },
   },
   { timestamps: true }
 );

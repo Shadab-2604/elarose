@@ -48,6 +48,7 @@ const DEFAULT_SETTINGS = {
   finalCtaSubheading: homeData.finalCtaSubheading || "Your perfect gift is just one message away.",
   finalCtaButton: homeData.finalCtaButton || "Order on Instagram",
   finalCtaImage: homeData.finalCtaImage || "https://images.pexels.com/photos/931177/pexels-photo-931177.jpeg?auto=compress&cs=tinysrgb&w=1600",
+  theme: "rose-atelier",
 };
 
 export async function GET() {

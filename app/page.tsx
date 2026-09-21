@@ -17,10 +17,14 @@ import HeroSettings from "@/models/HeroSettings";
 import FeaturedCategory from "@/models/FeaturedCategory";
 import HomePageSettings from "@/models/HomePageSettings";
 
+import ThemeSync from "@/components/ThemeSync";
+
 export const revalidate = 0;
 
 export default async function HomePage() {
   const bestSellers = productsData.filter((p) => p.isBestSeller).slice(0, 4);
+
+  let activeTheme = "rose-atelier";
 
   let heroData = {
     ...homeData.hero,
@@ -74,6 +78,9 @@ export default async function HomePage() {
     const pageSettingsDoc = pageSettingsDocRaw ? JSON.parse(JSON.stringify(pageSettingsDocRaw)) : null;
 
     if (pageSettingsDoc) {
+      if (pageSettingsDoc.theme) {
+        activeTheme = pageSettingsDoc.theme;
+      }
       if (pageSettingsDoc.hero) {
         heroData = {
           ...heroData,
@@ -187,6 +194,7 @@ export default async function HomePage() {
 
   return (
     <>
+      <ThemeSync theme={activeTheme} />
       <HeroSection data={heroData} />
       <CategoriesSection categories={featuredCats} heading={categoriesHeading} subheading={categoriesSubheading} />
       <BestSellersSection

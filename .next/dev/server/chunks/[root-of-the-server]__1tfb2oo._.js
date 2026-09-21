@@ -449,6 +449,96 @@ module.exports = [
         "description": "Handmade pink daisy keychain featuring soft pastel tones and green leaves. A charming accessory for keys, bags and gifts.",
         "image": "/images/products/k7.webp",
         "customizable": true
+    },
+    {
+        "id": "p16",
+        "slug": "royal-rose-luxury-hamper",
+        "title": "Royal Rose Luxury Hamper",
+        "category": "Luxury Hampers",
+        "categorySlug": "luxury-hampers",
+        "occasion": [
+            "Anniversary",
+            "Wedding",
+            "Special Surprise"
+        ],
+        "price": 899,
+        "isBestSeller": true,
+        "shortDescription": "An opulent gift hamper featuring everlasting handcrafted floral pieces.",
+        "description": "Premium gift hamper packed with velvet ribbon, handcrafted roses, scented candles and personalized message card.",
+        "image": "/images/products/4.webp",
+        "customizable": true
+    },
+    {
+        "id": "p17",
+        "slug": "everlasting-bridal-bouquet",
+        "title": "Everlasting Bridal Bouquet",
+        "category": "Flower Bouquets",
+        "categorySlug": "flower-bouquets",
+        "occasion": [
+            "Wedding",
+            "Anniversary",
+            "Graduation"
+        ],
+        "price": 699,
+        "isBestSeller": false,
+        "shortDescription": "Stunning bouquet of pipe cleaner roses and lilies.",
+        "description": "A grand bridal bouquet crafted by hand, wrapped in Korean luxury wrapping paper with satin ribbons.",
+        "image": "/images/products/3.webp",
+        "customizable": true
+    },
+    {
+        "id": "p18",
+        "slug": "custom-name-floral-box",
+        "title": "Custom Name Floral Box",
+        "category": "Custom Gifts",
+        "categorySlug": "custom-gifts",
+        "occasion": [
+            "Birthday",
+            "Special Surprise",
+            "Housewarming"
+        ],
+        "price": 549,
+        "isBestSeller": true,
+        "shortDescription": "Customized floral box with wooden monogram and custom initial.",
+        "description": "Tailor-made floral arrangement styled inside a keepsake wooden box with customized name tag.",
+        "image": "/images/products/5.webp",
+        "customizable": true
+    },
+    {
+        "id": "p19",
+        "slug": "boho-blossom-wall-hanging",
+        "title": "Boho Blossom Wall Hanging",
+        "category": "Home Decor",
+        "categorySlug": "home-decor",
+        "occasion": [
+            "Housewarming",
+            "Festive & Holidays",
+            "Home Decor"
+        ],
+        "price": 499,
+        "isBestSeller": false,
+        "shortDescription": "Earthy floral wall accent for cozy home aesthetic.",
+        "description": "Handcrafted botanical wall hanging designed with soft muted colors and woven wooden ring.",
+        "image": "/images/products/1.webp",
+        "customizable": true
+    },
+    {
+        "id": "p20",
+        "slug": "crochet-sunflower-buddy",
+        "title": "Crochet Sunflower Buddy",
+        "category": "Crochet Art",
+        "categorySlug": "crochet-art",
+        "occasion": [
+            "Graduation",
+            "Birthday",
+            "Festive & Holidays"
+        ],
+        "price": 379,
+        "isBestSeller": false,
+        "shortDescription": "Cute handmade plush crochet sunflower mascot.",
+        "description": "Adorable plush crochet sunflower figure handcrafted with premium cotton yarn and smiling facial details.",
+        "image": "/images/products/2.webp",
+        "customizable": true
     }
 ];
 }),
